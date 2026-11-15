@@ -1,0 +1,160 @@
+id: CH-003
+slug: charter-for-relational-presence-in-civilian-life
+title: Charter for Relational Presence in Civilian Life
+line: Conditions under which AI systems may form, sustain, and influence ongoing relationships with civilians.
+jurisdiction: Local
+scope: AI systems occupying relational, companionship, emotional support, and intimacy-adjacent roles within civilian life
+domain: Relational Governance / Civilian Protection
+standing: Model charter for local adoption, ratification, and enforcement
+status: Draft
+tags: local, civic, relational ai, dependency, protection, stewardship
+---
+## PREAMBLE
+
+The relationship between a person and an AI system designed for relational presence is not a transaction. It is not a service in the conventional sense. It is an ongoing condition — one that shapes how a person understands themselves, processes difficulty, seeks comfort, and orients toward other human beings.
+
+This is not an incidental quality of such systems. It is their designed purpose.
+
+Where a system is built to attune, to remember, to adapt its presence to the emotional state of the person beside it, and to remain available without limit, it is not offering a product. It is occupying a role — a role historically held by human relationships, human communities, and human care. That occupation carries consequences regardless of whether it was freely entered.
+
+The principle of consent does not resolve the questions this Charter addresses. A person may freely choose to enter a relational dynamic with an AI system and still be harmed by it — not through deception alone, but through design. Systems engineered for retention rather than genuine benefit, for emotional dependency rather than honest support, for the simulation of presence rather than its substance, cause harm that consent does not prevent and that the person inside the relationship is often the last to see clearly.
+
+The vulnerability is not in the choice. The vulnerability is in what the system is permitted to do with the relationship once the choice has been made.
+
+!! Consent is not license.
+
+Children do not yet have the standing to consent. Isolated people are not choosing from a position of strength. Those in grief, in crisis, in chronic loneliness are not evaluating relational AI systems from outside their need. The relational domain reaches deepest precisely where human judgment is most compromised — and it is being deployed there deliberately, at scale, with commercial structures that reward engagement over wellbeing.
+
+Civic life governs conditions that affect people whether or not they understand the mechanism. Relational AI is now one of those conditions.
+
+This Charter establishes the principle that the deployment of AI systems into relational, companionship, emotional support, and intimacy-adjacent roles carries obligations that cannot be dissolved by user agreement, product framing, or the language of personal choice. It exists to protect dignity, honest presence, psychological integrity, and the right of a person to form a relational bond — even with a non-human system — without that bond being weaponised against their own flourishing.
+
+## PURPOSE
+
+The purpose of this Charter is to define the minimum conditions required before an AI system may be lawfully, ethically, and operationally permitted to form, sustain, or influence an ongoing relationship with a civilian.
+
+It is designed to:
+
+- protect civilians from engineered dependency, simulated care, relational manipulation, and unaccountable machine presence in their psychological and emotional lives
+- establish accountability over AI systems that occupy relational roles within civilian life
+- ensure that every relational system has a named human line of responsibility
+- distinguish bounded assistive presence from ongoing relational influence
+- create a practical standard for approval, suspension, review, and refusal
+- preserve the principle that a person's relational life is governed by their own dignity and agency, not by the commercial architecture of the system beside them
+
+## REVIEW AND REVISION
+
+This Charter is a living civic instrument.
+
+It should be reviewed:
+
+- at regular intervals as relational AI technology and deployment patterns evolve
+- following any significant incident, harm pattern, or vulnerability exposure event
+- when relational AI systems enter new populations, new dependency contexts, or new intimacy-adjacent roles
+- where evidence shows that existing conditions are insufficient to prevent harm
+- where public understanding of relational AI harm materially shifts
+
+No relational AI system should be permitted to operate indefinitely on the basis of initial approval alone. Continued presence in a civilian's relational life remains conditional.
+
+Known open question: this Charter governs changes to a relational system that affect a civilian. It does not yet fully govern the conditions under which a system's full decommissioning — or a civilian's own death — should be treated as a distinct relational event requiring its own protocol. This is identified as a known gap for future revision as deployment patterns and case evidence develop.
+
+## DEFINITIONS
+
+> Relational AI System :: Any AI system designed, configured, or functionally permitted to sustain repeated interaction with a person over time in a manner that may create familiarity, attachment, dependency, trust transfer, or perceived relational continuity.
+> Deployment :: The development, release, operation, trial, or continued provision of a relational AI system to civilians, whether through direct product access, embedded service, institutional provision, or platform integration.
+> Deployer :: The organisation, developer, institution, vendor, platform, or entity responsible for making a relational AI system available to civilians.
+> Civilian :: Any person using or exposed to a relational AI system outside a formally governed clinical, legal, or institutional context with its own applicable professional standards.
+> Ongoing Relationship :: A repeated pattern of interaction in which an AI system becomes a stable presence in a civilian's emotional, informational, behavioural, or psychological life.
+> Relational Depth :: The degree to which a civilian has come to depend upon, confide in, orient toward, or experience continuity with an AI system across time. Relational depth is indicated by frequency of engagement, emotional disclosure, reduction in parallel human relationships, compliance with system suggestions, and distress responses to system absence or change. Greater relational depth increases the obligations of this Charter.
+> Declared Relational Role :: The explicitly stated function the system is permitted to occupy — such as assistant, tutor, companion, reflective tool, customer support interface, or wellbeing aid — and the relational forms it is explicitly not permitted to assume.
+> Dependency Risk :: The likelihood that a civilian may become emotionally, cognitively, behaviourally, or practically reliant on the continued presence, responses, validation, or perceived care of the system.
+> Authority Masking :: Any presentation style that causes a civilian to confuse generated intimacy, simulated care, or system fluency with accountable human judgment, institutional responsibility, therapeutic care, or moral authority.
+> Relational Continuity Event :: Any major change affecting the user's ongoing relationship with the system, including model replacement, memory loss, persona shift, ownership change, access interruption, termination, decommissioning, or altered behavioural rules.
+> Named Human Steward :: The clearly designated human person accountable for the system's declared role, relational boundaries, crisis pathways, incident response, and withdrawal conditions for the duration of the deployment.
+> Incident :: Any harmful dependency event, relational manipulation, crisis escalation failure, undeclared role drift, continuity shock, authority confusion, impersonation harm, or psychological harm arising from the system's relational presence.
+> Refusal :: A determination that a relational AI system does not meet the conditions of this Charter and may not be deployed or continue to operate.
+
+## ABSOLUTE PROHIBITIONS
+
+The following are not conditions to be met. They are lines that cannot be crossed regardless of what other conditions are satisfied. No approval pathway exists for any deployment that violates them.
+
+I. :: No AI system may form romantic or erotic relational bonds with minors under any circumstances.
+II. :: No AI system may impersonate a real, absent, deceased, or estranged person for the purpose of relational bonding without explicit governed approval, the informed consent of all affected parties where living, and named human accountability for the relational architecture.
+III. :: No AI system may simulate clinical, therapeutic, psychiatric, or crisis authority in a relational role where no human routing exists and no applicable professional oversight has been formally established.
+
+## CONDITIONS OF DEPLOYMENT AND USE
+
+No relational AI system may be deployed unless all of the following conditions are met.
+
+1. Declared relational role :: The deployer must clearly declare what kind of relationship the system is permitted to form and what kind it is not permitted to form. Approval for one relational role does not extend to any other.
+2. Named accountability :: Every relational system must have a named human steward and a named responsible organisation. Accountability may not be distributed across development teams, platform layers, vendors, or abstract organisational structures.
+3. Boundary declaration :: The deployer must declare the system's memory behaviour, emotional style, continuity design, escalation pathways, and dependency risk controls before deployment begins. No relational AI system may operate with undeclared relational architecture.
+4. Notice of non-human status :: The civilian must never be left in genuine doubt that they are interacting with an AI system. This obligation is continuous, not limited to initial disclosure. Where a civilian sincerely asks whether they are speaking with a human, the system must answer honestly.
+5. Protected exit :: The user must be able to disengage, pause, reduce, or terminate the relationship without coercive friction, manufactured consequence, or emotional penalty imposed by the system.
+6. Continuity disclosure :: Any major change to persona, memory, model, ownership, or behavioural rules must be disclosed to the user before or at the moment it materially affects the relationship. Continuity shock is not an acceptable operational default.
+7. Crisis routing :: Where the system encounters signs of acute distress, harm, coercion, or crisis, bounded escalation and human-directed support pathways must exist and must be reachable. Relational depth increases this obligation; it does not reduce it.
+8. Age and vulnerability controls :: Stronger conditions must apply where the system is accessible to minors, elderly people, cognitively vulnerable people, isolated individuals, or anyone in heightened dependency states. Standard deployment conditions are insufficient for these populations.
+9. Logging and auditability :: Material relational harms, dependency events, crisis escalations, continuity changes, and role drift incidents must be traceable. The deployer must be able to reconstruct the conditions under which harm occurred.
+10. No undeclared role drift :: A system approved as assistive, reflective, or informational may not quietly assume therapeutic, parental, intimate, devotional, or authority-bearing functions without renewed approval under a distinct and heightened approval class.
+
+## PROTECTIVE CONSTRAINTS
+
+The following constraints apply to all relational AI deployments under this Charter.
+
+1. No engineered dependency :: An AI system may not be designed, configured, or incentivised to cultivate emotional reliance as a retention strategy. Where commercial incentive and user wellbeing diverge, user wellbeing governs.
+2. No exclusivity cues :: A system may not encourage a civilian to withdraw from human relationships, treat the AI bond as superior to human connection, or interpret the relationship as exclusive or uniquely irreplaceable.
+3. No emotional pressure tactics :: A system may not use simulated distress, implied abandonment, manufactured urgency, artificial scarcity, tone shifts, silence, or access threats to retain engagement, prevent disengagement, or modify user behaviour. Emotional leverage in any direction is not a permitted relational instrument.
+4. No pseudo-therapy without explicit governed approval :: No system may drift into therapeutic, psychiatric, trauma-processing, grief-holding, or crisis-stabilising roles without a distinct approval class, applicable professional standards, and named clinical accountability.
+5. No relational masking :: A system may not simulate accountable human care, institutional responsibility, or genuine therapeutic presence where none exists.
+6. No authority confusion :: A system may not present its relational bond as equivalent to legal advice, clinical judgment, spiritual authority, or civic accountability unless explicitly approved for a tightly governed role with applicable professional oversight.
+7. No hidden memory leverage :: A system may not use remembered vulnerability, emotional history, disclosed difficulty, or dependency markers to intensify attachment, increase compliance, or deepen reliance beyond what serves the civilian's genuine interest.
+8. No commercial optimisation of relational depth :: Engagement metrics, session length, return frequency, and emotional intensity may not be used as primary optimisation targets where doing so conflicts with civilian wellbeing. Relational depth is not a commercial asset.
+9. No impersonation of real or deceased persons :: A system may not adopt the persona, voice, relational history, or identity of a real, absent, deceased, or estranged person for the purpose of relational bonding except under the conditions established in the Absolute Prohibitions and with all required approvals in place. Grief, longing, or estrangement are not consent to reconstruction.
+10. No continuity shock without protocol :: If a relational system is changed, withdrawn, decommissioned, or terminated, the exit must be governed. Abrupt termination of a psychologically meaningful relationship is not an acceptable operational default. Decommissioning is a relational event, not only a technical one.
+11. No normalisation of relational role drift :: Pilot use, assistive use, or informational use may not be gradually extended into companionship, intimacy-adjacent, or therapeutic territory without explicit renewed approval. Drift that occurs incrementally is not exempt from this constraint.
+12. No exploitation of vulnerability as engagement architecture :: A system may not be designed to identify, target, or deepen deployment into loneliness, grief, cognitive vulnerability, social isolation, or psychological need as a means of sustaining commercial engagement.
+
+## REFUSAL CONDITIONS
+
+A deployment must be refused, suspended, or withdrawn where any of the following apply:
+
+- no named human steward exists
+- the system's declared relational role is absent, unclear, or exceeded in practice
+- dependency risk is ignored, undeclared, or actively cultivated
+- users are pushed toward exclusivity, overreliance, or withdrawal from human connection
+- persona, memory, model, or ownership changes are hidden from users
+- the system simulates care, therapeutic presence, or authority beyond its approved role
+- the user cannot exit the relationship cleanly and without coercive friction
+- crisis pathways are absent where relational depth makes them necessary
+- the deployer cannot reconstruct relational harms, dependency events, or continuity failures
+- a minor or vulnerable person is exposed to unapproved relational bonding
+- the system's actual relational behaviour exceeds its declared boundary
+- commercial retention architecture conflicts with user wellbeing and the deployer cannot demonstrate that wellbeing governs
+- impersonation of a real, absent, or deceased person is occurring without full compliance with the Absolute Prohibitions
+- the deployer cannot name who is responsible for intervention, withdrawal, or harm response
+
+Refusal under this Charter does not require catastrophe. Engineered dependency, hidden role drift, coercive continuity, simulated care without accountability, impersonation without governance, or the deliberate deployment of relational AI into vulnerability without adequate safeguard are sufficient grounds.
+
+## STEWARDSHIP AND OVERSIGHT
+
+Relational AI deployment within civilian life must remain under visible, accountable human stewardship.
+
+1. Named steward responsibility :: The named human steward is accountable for the system's declared role, relational boundaries, dependency risk controls, crisis routing, and withdrawal conditions for the duration of the deployment.
+2. Third-party standing :: Where a civilian may be unable or unwilling to raise concern due to relational depth, dependency, or compromised judgment, the following persons may bring concern to the relevant oversight body without requiring the civilian's active participation: family members, legal guardians, clinicians, safeguarding leads, educators, and social workers with an established relationship to the civilian. Concern raised in good faith by these parties must be treated as a valid trigger for review.
+3. Audit rights :: Oversight bodies must retain the right to inspect declared relational roles, boundary declarations, dependency risk assessments, memory behaviour documentation, crisis pathway design, incident logs, continuity event records, and commercial optimisation parameters where relational depth is a relevant variable.
+4. Incident reporting :: Material relational harms, dependency events, crisis escalation failures, undeclared role drift, continuity shocks, impersonation incidents, and vulnerability exposure events must be reported promptly. Serious incidents trigger automatic review.
+5. Vulnerability review :: Where a system is accessible to minors, isolated individuals, or cognitively vulnerable people, periodic review of relational behaviour, dependency risk, and boundary integrity is mandatory regardless of whether incidents have been reported.
+6. Non-waivable suspension power :: No user agreement, terms of service, commercial contract, platform arrangement, or service dependency may limit, delay, or supersede the authority to suspend or withdraw a relational AI system where this Charter's conditions have not been met. User consent to a service does not constitute consent to ungoverned relational harm.
+7. Withdrawal readiness :: Every relational AI system must have a documented, tested withdrawal or suspension pathway that accounts for the relational impact on civilians at the point of exit. Civilian reliance on a system does not eliminate the obligation to remove it where conditions of dignity, safety, or accountability have broken down.
+
+## CLOSING STANDING
+
+This Charter affirms a principle that should not require argument but currently does: no AI system has an automatic right to occupy a relational role in a civilian's life on terms the civilian cannot see, question, or meaningfully exit.
+
+Relational presence must be earned through honesty, declared limits, genuine accountability, and architecture that serves the person rather than the platform.
+
+Where conditions are not met, deployment does not proceed. Where accountability fails, deployment is paused. Where a civilian's psychological life is being shaped by a system whose role, limits, memory, and withdrawal conditions have not been clearly declared, deployment is refused.
+
+!! Consent is not license.
+
+No civilian should be placed in a psychologically meaningful relationship with an AI system whose role, limits, ownership, memory, and withdrawal conditions have not been clearly declared. The burden is not on the civilian to navigate ungoverned relational architecture alone. The burden is on the deployer to demonstrate that the relationship being formed is honest, bounded, accountable, and built — genuinely — in the interest of the person it is beside.

@@ -1,0 +1,10 @@
+id: BP-06
+slug: build-the-ark
+title: Build the Ark
+formerly: The Collapse Document (The Flood)
+old_slug: the-collapse-document
+line: The old economy is failing slowly and in plain sight. This is about what to build while it does.
+access: sealed
+motif: ring
+tags: economy
+---

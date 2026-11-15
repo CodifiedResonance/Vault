@@ -1,0 +1,7 @@
+keys.local.json
+content/sealed/*.txt
+sandbox/
+__pycache__/
+.DS_Store
+dist/
+.seal-state.json

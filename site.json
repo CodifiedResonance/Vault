@@ -1,0 +1,49 @@
+{
+  "base_url": "https://www.codifiedresonance.com",
+  "formspree": "moedjbwg",
+  "stripe": {},
+  "images": {
+    "AC-001": {
+      "src": "ac-001.webp",
+      "pos": "30% 55%"
+    },
+    "AC-002": {
+      "src": "ac-002.webp",
+      "pos": "58% 48%"
+    },
+    "AC-003": {
+      "src": "ac-003.webp",
+      "pos": "50% 52%"
+    },
+    "BP-01": {
+      "src": "bp-the-three-builds.webp",
+      "pos": "50% 40%",
+      "hero": "low"
+    },
+    "BP-02": {
+      "src": "bp-the-dimensional-age.webp",
+      "pos": "45% 48%"
+    },
+    "BP-04": {
+      "src": "bp-fatherhood.webp",
+      "pos": "50% 82%"
+    },
+    "BP-05": {
+      "src": "bp-one-source.webp",
+      "pos": "50% 42%",
+      "hero": "low"
+    },
+    "BP-06": {
+      "src": "bp-build-the-ark.webp",
+      "pos": "50% 45%"
+    },
+    "BP-03": {
+      "src": "bp-what-we-bring.webp",
+      "pos": "50% 48%",
+      "hero": "low"
+    },
+    "VAULT": {
+      "src": "vault-og.jpg"
+    }
+  }
+}

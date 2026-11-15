@@ -1,0 +1,160 @@
+// CH-001 — canonical text, carried over word for word from the live Vault.
+// "N. Title | text" = numbered clause. "Term :: definition" = definition.
+
+export default {
+  version: 'CH-001',
+  slug: 'charter-for-robotic-presence-in-civilian-space',
+  title: 'Charter for Robotic Presence in Civilian Space',
+  summary: 'Conditions under which robotic systems may enter, move through, and operate within shared civilian space.',
+  card: 'Defines the minimum civic, technical, ethical, and protective conditions required before any robotic system may be deployed within local civilian environments.',
+  jurisdiction: 'Local',
+  scope: 'Robotic presence within shared civilian environments',
+  domain: 'Robotics / Civic Protection',
+  plate: 'Robotics',
+  standing: 'Model charter for local adoption, ratification, and enforcement',
+  status: 'Draft',
+  tags: ['local', 'robotics', 'protection'],
+  body: `
+## Preamble
+Robotic systems are moving from controlled industrial zones into environments shared by ordinary people. Streets, schools, transport systems, retail settings, logistics corridors, health spaces, workplaces, and domestic thresholds are no longer insulated from autonomous or semi-autonomous machine presence. This shift is not theoretical. It is physical, social, psychological, and civic.
+
+Where a machine can move, perceive, decide, persist, or exert force within human environments, conditions must be set before deployment, not after harm. Public space is not a testing ground by default. Civilian life is not a passive substrate for ungoverned experimentation. No robotic presence should be presumed acceptable merely because it is possible, novel, efficient, or commercially available.
+
+This Charter establishes the principle that local communities have both the right and the responsibility to determine the conditions under which robotic systems may enter shared space. It exists to protect dignity, safety, clarity, accountability, and proportion at the point where people actually live.
+
+## Purpose
+The purpose of this Charter is to define the minimum conditions required before a robotic system may be lawfully, ethically, and operationally deployed within local civilian environments.
+
+It is designed to:
+
+- protect the public from preventable harm, coercion, confusion, and unaccountable machine presence
+- establish local authority over robotic deployment within shared space
+- ensure that every deployment has a named human line of responsibility
+- distinguish permissible use from premature or unsuitable use
+- create a practical standard for approval, suspension, review, and refusal
+- preserve the principle that human environments are governed by stewardship, not technical inevitability
+
+## Review and Revision
+This Charter is intended as a living civic instrument, not a frozen document.
+
+It should be reviewed:
+
+- at regular local intervals
+- following any significant incident
+- upon major technical changes to system behaviour, intelligence boundary, or operating scope
+- when robotic systems begin entering new categories of public environment
+- where public concern materially shifts
+- where local evidence shows that existing conditions are insufficient
+
+No deployment should be grandfathered into permanence merely because it arrived early. Continued operation remains conditional.
+
+## Definitions
+Robot / Robotic System :: Any machine or embodied system capable of moving through physical space, sensing its environment, taking action, interacting with people, handling objects, or exerting force, whether autonomously, semi-autonomously, remotely operated, or in hybrid form.
+
+Deployment :: The placement, activation, trial, operation, or continued use of a robotic system within a local environment outside a sealed testing or industrial setting.
+
+Shared Civilian Environment :: Any public, semi-public, or commonly accessed space in which ordinary people may be present, including streets, pavements, parks, schools, retail zones, transport spaces, public buildings, healthcare settings, event venues, and mixed-use environments.
+
+Deployer :: The organisation, operator, authority, vendor, contractor, or entity seeking to introduce or operate a robotic system within the jurisdiction.
+
+Named Human Steward :: The clearly designated human person accountable for the system's lawful operation, intervention pathway, incident response, and withdrawal where necessary.
+
+High-Risk Function :: Any robotic activity involving force, close-proximity interaction, movement through dense public space, object handling around people, surveillance-sensitive environments, vulnerable populations, or settings where malfunction could cause injury, panic, obstruction, or civic disruption.
+
+Emergency Stop :: A reliable, immediate, accessible mechanism by which the system can be paused, disabled, or safely immobilised.
+
+Incident :: Any malfunction, collision, obstruction, unsafe behaviour, loss of control, harmful interference, failure of override, near miss, unauthorised entry, or public safety event involving the system.
+
+Refusal :: A local determination that a proposed or active robotic deployment does not meet the conditions of this Charter and may not proceed.
+
+Declared Intelligence Boundary :: The full scope of the system's decision-making, sensing, inference, learning, and adaptive capabilities as declared to the local authority. Any capability not declared within this boundary shall be treated as undeclared escalation under this Charter.
+
+## Conditions of Deployment and Use
+No robotic system may be deployed within the jurisdiction unless all of the following conditions are met.
+
+1. Declared purpose | The deployer must clearly declare the function of the system, the environment in which it will operate, the specific problem it claims to address, and the reason robotic presence is necessary rather than merely convenient.
+
+2. Named accountability | Every deployment must have a named human steward and a named responsible organisation. Responsibility may not be diffused across vendors, contractors, software providers, insurers, or abstract system ownership structures.
+
+3. Local registration | The system must be registered with the relevant local authority before operation begins. Registration must include system type, operating zone, operating hours, steward contact, emergency procedures, technical risk profile, and declared intelligence boundary.
+
+4. Risk assessment | A deployment-specific local risk assessment must be completed before approval. This assessment must address safety, collision risk, obstruction risk, vulnerable population exposure, environmental conditions, signal loss, remote override failure, behavioural instability, and any material risks arising from the system's intelligence boundary.
+
+5. Emergency intervention | The system must include a tested emergency stop pathway and a clearly documented intervention protocol. The means of stopping or immobilising the system must be available without unreasonable delay.
+
+6. Visible identification | The system must display a visible identifier linking it to a steward or operator. Members of the public must be able to determine who is responsible for the machine and how to report concern or harm.
+
+7. Operating boundaries | The system must operate within clearly defined geographic, temporal, and functional limits. It must not exceed approved zones, hours, or uses without renewed approval.
+
+8. Logging and traceability | The system must maintain sufficient operational logs to reconstruct incidents, interventions, route deviations, control failures, and system state changes. These logs must be available for audit following any safety event.
+
+9. Data limitation | Data collected during operation, including environmental sensing, route logs, and incident records, must not be used for purposes beyond operational safety, incident reconstruction, and local audit unless separately and explicitly approved. Secondary commercial, analytical, or training use of locally collected operational data requires distinct approval.
+
+10. Public clarity | Where the public may reasonably encounter the system, its presence must not be deceptive. People should not be expected to infer whether a machine is autonomous, remotely operated, supervised, adaptive, or experimental.
+
+11. Accessibility and proportionality | The deployment must not unreasonably burden disabled people, obstruct access routes, degrade navigability, or create a civic environment in which ordinary movement becomes subordinate to machine logistics.
+
+## Protective Constraints
+The following constraints apply to all deployments under this Charter.
+
+1. Human priority | Human safety, dignity, movement, and clarity take precedence over machine continuity, task completion, or commercial efficiency.
+
+2. No weaponisation | No robotic system governed by this Charter may carry weapons, deterrent devices, coercive force attachments, or intimidation features designed to threaten, corner, pressure, or physically dominate civilians.
+
+3. No unbounded experimentation | Public environments are not open laboratories. Experimental deployment requires explicit local approval, enhanced monitoring, and restricted operating conditions. Experimental deployment is a distinct approval class, not a subset of standard deployment.
+
+4. No unsupervised operation in sensitive zones | Absent exceptional and explicit approval, robotic systems may not operate unsupervised in schools, childcare settings, hospitals, elder-care environments, crisis settings, or spaces primarily occupied by vulnerable persons.
+
+5. No manipulative interaction | A robotic system may not be used to pressure, socially engineer, emotionally manipulate, or exploit confusion in members of the public.
+
+6. No undeclared sensing or intelligence escalation | A system may not expand its sensing, recording, tracking, inferential, adaptive, or decision-making capabilities beyond what has been locally declared and approved.
+
+7. No obstruction as normal cost | It is not acceptable for obstruction, crowd interference, instability, or near misses to be treated as routine tolerances of innovation.
+
+8. No autonomy beyond demonstrated control | Where a system's real-world behaviour exceeds its proven safe operating envelope, deployment must pause until reapproved.
+
+## Refusal Conditions
+A deployment must be refused, suspended, or withdrawn where any of the following apply:
+
+- no named human steward exists
+- emergency stop or manual intervention pathways are absent, unreliable, or untested
+- the deployer cannot produce adequate logs, technical documentation, or incident reconstruction capability
+- the local risk assessment is incomplete, misleading, or materially outdated
+- the operating environment is too dense, too variable, too sensitive, or too vulnerable for safe deployment
+- the system has demonstrated unsafe behaviour, erratic motion, repeated collision risk, or repeated public interference
+- the public cannot reasonably identify who is responsible
+- liability, insurance, and response obligations are unclear
+- the deployment materially degrades accessibility, public calm, or civic movement
+- the deployer seeks to normalise trial conditions under the language of service continuity
+- the system's intelligence boundary is unclear, materially underdeclared, or found to exceed what was approved
+- local authority no longer has confidence in the system's proportionality, suitability, or stewarded control
+
+Refusal under this Charter does not require catastrophe. Repeated instability, near misses, public confusion, undeclared escalation, or stewardship failure are sufficient grounds.
+
+## Stewardship and Oversight
+Robotic deployment within local civilian environments must remain under visible, auditable human stewardship.
+
+1. Local oversight | A designated local authority, committee, or review function shall retain the power to approve, constrain, suspend, or revoke deployment.
+
+2. Named steward presence | For higher-risk deployments, the named human steward must be physically proximate or operationally reachable within an appropriate response window defined by local conditions.
+
+3. Incident reporting | All incidents and near misses must be reported promptly. Serious incidents should trigger automatic review.
+
+4. Public reporting pathway | A simple public-facing reporting channel must exist for complaints, hazards, confusion, or harm associated with the system.
+
+5. Audit rights | Local oversight bodies must retain the right to inspect logs, operating constraints, intervention history, incident history, declared capability boundaries, and declared intelligence boundaries.
+
+6. Non-waivable suspension power | No deployment agreement, service contract, procurement arrangement, pilot agreement, or commercial relationship may limit, delay, dilute, or supersede the local authority's power to suspend, withdraw, or refuse approval. Contractual continuity does not override civic safety.
+
+## Closing Standing
+This Charter affirms a simple principle: no robotic system has an automatic right to civilian space.
+
+Presence must be earned through clarity, stewardship, suitability, accountability, and proven restraint. Local communities bear the consequences of machine deployment first; they therefore retain the right to set the terms first.
+
+Where conditions are not met, deployment does not proceed.
+Where stewardship fails, deployment is paused.
+Where public space is asked to absorb risk without consent, deployment is refused.
+
+The burden is not on the public to adapt endlessly to robotic presence. The burden is on the deployer to demonstrate that such presence is safe, necessary, proportionate, governable, and bounded within what has actually been declared.
+`,
+};
