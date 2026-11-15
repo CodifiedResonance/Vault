@@ -420,21 +420,53 @@
   /* ==========================================================
      SEND SIGNAL
      ========================================================== */
-  function initSignal(root){
-    var card = $('.transmit-card', root), input = $('#tx-input', root), meta = $('.tx-meta', root), tog = $('#tx-toggle-meta', root), err = $('.tx-err', root), send = $('#tx-send', root);
-    tog.addEventListener('click', function(e){
-      e.preventDefault(); var open = meta.classList.toggle('is-open');
-      tog.setAttribute('aria-expanded', open); tog.textContent = open ? 'Hide contact info' : 'Add contact info';
-    });
-    send.addEventListener('click', function(){
-      var m = input.value.trim(); err.textContent = '';
-      if(!m){ input.focus(); return; }
-      send.disabled = true;
-      transmit('signal', { message:m, name:$('#tx-name', root).value.trim(), email:$('#tx-email', root).value.trim(), _subject:'Signal — The Vault' })
-        .then(function(r){
-          send.disabled = false;
-          if(!r.ok){ err.textContent = r.msg; return; }
-          card.classList.add('is-sent'); $('#tx-sent', root).classList.add('open');
+  /* links from a document into correspondence carry the topic with them */
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('[data-write]'); if(!a) return;
+    sset('sessionStorage', 'cr-write', JSON.stringify({ about:a.dataset.write, doc:a.dataset.doc || '' }));
+  });
+
+  function initWrite(root){
+    var form = $('.wr-form', root), err = $('.wr-err', root), docField = $('.wr-doc', root), sel = form.elements.document;
+    var hint = $('.wr-email-hint', root), sent = $('.wr-sent', root), wrap = $('.wr', root);
+    var NEEDS_DOC = { response:1, adoption:1 };
+    function about(){ var r = form.querySelector('input[name=about]:checked'); return r ? r.value : 'other'; }
+    function sync(){
+      var a = about();
+      docField.classList.toggle('is-open', !!NEEDS_DOC[a]);
+      hint.textContent = a === 'adoption' || a === 'press' ? 'needed, so we can reply' : 'if you would like a reply';
+      $$('.wr-pill', root).forEach(function(p){ p.classList.toggle('is-on', p.querySelector('input').checked); });
+      if(a === 'adoption' && sel.value && sel.value.indexOf('CH-') !== 0) sel.value = '';
+    }
+    $$('input[name=about]', form).forEach(function(r){ r.addEventListener('change', sync); });
+    try{
+      var pre = JSON.parse(sget('sessionStorage', 'cr-write') || 'null');
+      if(pre){
+        var r = form.querySelector('input[name=about][value="' + pre.about + '"]'); if(r) r.checked = true;
+        if(pre.doc) for(var i = 0; i < sel.options.length; i++){ if(sel.options[i].text === pre.doc){ sel.selectedIndex = i; break; } }
+        store('sessionStorage').removeItem('cr-write');
+      }
+    }catch(e){}
+    sync();
+    form.addEventListener('submit', function(e){
+      e.preventDefault(); err.textContent = '';
+      var a = about(), msg = form.elements.message.value.trim(), email = form.elements.email.value.trim();
+      if(form.elements._gotcha.value) return;
+      if(!msg){ err.textContent = 'Write your message first.'; form.elements.message.focus(); return; }
+      if(email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ err.textContent = 'That email address does not look right.'; form.elements.email.focus(); return; }
+      if(!email && (a === 'adoption' || a === 'press')){ err.textContent = 'Leave an email so we can reply.'; form.elements.email.focus(); return; }
+      var label = form.querySelector('input[name=about]:checked + span'), topic = label ? label.textContent : 'Correspondence';
+      var doc = NEEDS_DOC[a] ? sel.value : '';
+      var btn = $('button[type=submit]', form); btn.disabled = true;
+      transmit('correspondence', { about:topic, document:doc, message:msg, name:form.elements.name.value.trim(), email:email,
+        _replyto:email || undefined, _subject:'The Vault: ' + topic + (doc ? ' (' + doc + ')' : '') })
+        .then(function(res){
+          btn.disabled = false;
+          if(!res.ok){ err.textContent = res.msg; return; }
+          $('.wr-sent-line', root).textContent = email
+            ? 'Thank you for writing. A reply will come from a person, to ' + email + '.'
+            : 'Thank you for writing. You left no email, so no reply can be sent, but it will be read.';
+          wrap.classList.add('is-sent'); window.scrollTo({ top:0, behavior: reduce ? 'auto' : 'smooth' });
         });
     });
   }
@@ -448,7 +480,7 @@
     if(kind === 'accord') initAccord(root);
     if(kind === 'charter') initCharter(root);
     if(kind === 'blueprint') initBlueprint(root);
-    if(kind === 'signal') initSignal(root);
+    if(kind === 'write') initWrite(root);
     if(kind === 'questions') initQuestions(root);
   }
 
