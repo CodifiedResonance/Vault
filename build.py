@@ -495,12 +495,12 @@ def page_signal():
   <div class="signal-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="white" stroke-width="5"><circle cx="50" cy="50" r="10"/><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="45"/></svg></div>
   <div class="transmit-card">
     <header class="tx-head"><h1 class="tx-title">Send Signal</h1><div class="tx-sub">Everything sent here is read by a person.</div></header>
-    <div class="tx-field"><label class="sr" for="tx-input">Your signal</label><textarea id="tx-input" class="tx-input" placeholder="Write your signal: a response, a question, an offer to help, or something you have noticed." spellcheck="true"></textarea><div class="tx-underline" aria-hidden="true"></div></div>
+    <div class="tx-field"><label class="sr" for="tx-input">Your signal</label><textarea id="tx-input" class="tx-input" placeholder="A response, a question, an offer to help, or something you have noticed." spellcheck="true"></textarea><div class="tx-underline" aria-hidden="true"></div></div>
     <div class="tx-meta"><input id="tx-name" placeholder="Name (optional)" autocomplete="name" aria-label="Name (optional)"><input id="tx-email" type="email" placeholder="Email (optional)" autocomplete="email" aria-label="Email (optional)"></div>
     <div class="tx-actions"><button id="tx-send" type="button" class="tx-btn alive"><i class="glow"></i><span>Transmit Signal</span></button><a href="%s" class="tx-btn"><span>Back to Vault</span></a></div>
     <div class="tx-links"><a id="tx-toggle-meta" href="#" role="button" aria-expanded="false">Add contact info</a></div>
     <p class="tx-err" role="alert"></p>%s
-    <div id="tx-sent" class="tx-sent" role="status" aria-live="polite"><div>Signal transmitted. Await resonance.</div><div class="sent-line" aria-hidden="true"></div></div>
+    <div id="tx-sent" class="tx-sent" role="status" aria-live="polite"><div>Signal received. It will be read.</div><div class="sent-line" aria-hidden="true"></div></div>
   </div>
 </div>
 </main>
