@@ -157,15 +157,15 @@ def issue(slug):
 MODE = "dist"
 def U(key):
     if MODE == "sandbox":
-        return "#" + ("correspondence" if key == "write" else key)
+        return "#" + key
     return {"vault": "/", "accords": "/#accords", "charters": "/#charters", "blueprints": "/#blueprints",
-            "identity": "/identity/", "write": "/correspondence/"}[key]
+            "identity": "/identity/", "signal": "/signal/"}[key]
 def UD(d):
     return "#" + d["rid"] if MODE == "sandbox" else "/%s/%s/" % (d["kind"], d["slug"])
 
 # ---------------------------------------------------------------- pieces
 def topbar(current=""):
-    links = [("accords", "Accords"), ("charters", "Charters"), ("blueprints", "Blueprints"), ("identity", "The Questions"), ("write", "Correspondence")]
+    links = [("accords", "Accords"), ("charters", "Charters"), ("blueprints", "Blueprints"), ("identity", "The Questions"), ("signal", "Send Signal")]
     return '''<header class="topbar">
   <a class="mark" href="%s" aria-label="The Vault — home"><i class="mark-glyph" aria-hidden="true">⚶</i><span>The Vault</span></a>
   <nav class="toplinks" aria-label="Chambers">%s</nav>
@@ -174,8 +174,8 @@ def topbar(current=""):
 def footer():
     return '''<footer class="foot">
   <span><em>Codified Resonance</em> · The Vault · Everything here lives.</span>
-  <nav aria-label="Footer"><a href="%s">The Vault</a><a href="%s">The Questions</a><a href="%s">Correspondence</a></nav>
-</footer>''' % (U("vault"), U("identity"), U("write"))
+  <nav aria-label="Footer"><a href="%s">The Vault</a><a href="%s">The Questions</a><a href="%s">Send Signal</a></nav>
+</footer>''' % (U("vault"), U("identity"), U("signal"))
 
 def orbit_svg(seed):
     r = random.Random(seed)
@@ -335,14 +335,14 @@ def page_accord(d):
   <div class="doc-secondary">%s</div>
   <div class="doc-footstrip">%s</div>
   <section class="doc-related"><h2>Also witnessed in this chamber</h2><div class="v-grid">%s</div></section>
-  <p class="doc-write"><a href="%s" data-write="response" data-doc="%s">Write about this Accord →</a></p>
+  <p class="doc-write"><a href="%s" data-write="response" data-doc="%s">Send a signal about this Accord →</a></p>
   <a class="doc-back" href="%s">← Back to the Accords</a>
 </article>
 </main>
 %s''' % (topbar("accords"), img(d["id"]), E(d["status"]), E(d["title"]), E(d["line"]),
          strip([("Form", d["form"]), ("Domain", d["domain"]), ("Scope", d["scope"]), ("Standing", d["standing"])]),
          sec_html(main), sec_html(witness), sec_html(rest), strip([("Status", d["status"]), ("Edition", d["id"])]),
-         "\n".join(accord_card(a) for a in related), U("write"), A(d["id"] + " — " + d["title"]), U("accords"), footer())
+         "\n".join(accord_card(a) for a in related), U("signal"), A(d["id"] + " — " + d["title"]), U("accords"), footer())
 
 def page_charter(d):
     main, second = sections(d["body"])
@@ -371,7 +371,7 @@ def page_charter(d):
       <div class="doc-secondary ch-secondary" style="margin-left:0">%s</div>
       <div class="doc-footstrip" style="margin-left:0">%s</div>
       <section class="doc-related" style="margin-left:0"><h2>The Charter trilogy</h2><div class="v-grid">%s</div></section>
-      <aside class="doc-adopt"><p class="doc-adopt-k">Adoption</p><p>This is a model charter. Councils, authorities and institutions are free to adopt, adapt or ratify it. If you are considering it, or want to talk it through, write directly.</p><a class="bp-btn alive" data-access="public" href="%s" data-write="adoption" data-doc="%s"><i class="glow"></i><span>Write about adopting %s</span></a></aside>
+      <aside class="doc-adopt"><p class="doc-adopt-k">Adoption</p><p>This is a model charter. Councils, authorities and institutions are free to adopt, adapt or ratify it. If you are considering it, or want to talk it through, send a signal and leave an email for a reply.</p><a class="bp-btn alive" data-access="public" href="%s" data-write="adoption" data-doc="%s"><i class="glow"></i><span>Send a signal about adopting %s</span></a></aside>
       <a class="doc-back" href="%s">← Back to the Charters</a>
     </div>
   </div>
@@ -380,7 +380,7 @@ def page_charter(d):
 %s''' % (topbar("charters"), E(d["status"]), E(d["title"]), E(d["line"]),
          strip([("Jurisdiction", d["jurisdiction"]), ("Scope", d["scope"]), ("Domain", d["domain"]), ("Standing", d["standing"]), ("Version", d["id"])]),
          index, sec_html(main), sec_html(second), strip([("Standing", d["standing"]), ("Version", d["id"])]),
-         "\n".join(charter_card(c) for c in related), U("write"), A(d["id"] + " — " + d["title"]), d["id"], U("charters"), footer())
+         "\n".join(charter_card(c) for c in related), U("signal"), A(d["id"] + " — " + d["title"]), d["id"], U("charters"), footer())
 
 SEAL = '<div class="bp-seal" aria-hidden="true"><i class="s-r3"></i><i class="s-r2"></i><i class="s-r1"></i><i class="s-wave"></i><i class="s-wave w2"></i><i class="s-core"></i></div>'
 BTN = '<button type="button" class="bp-btn alive %s"><i class="glow"></i><span>%s</span></button>'
@@ -441,13 +441,13 @@ def page_blueprint(d):
     %s
     %s
   </div>
-  <div class="bp-bar"><a href="%s">← Back to Vault</a><a href="%s" data-write="response" data-doc="%s">Write about this</a></div>
+  <div class="bp-bar"><a href="%s">← Back to Vault</a><a href="%s" data-write="response" data-doc="%s">Send Signal</a></div>
   <div class="bp-body">%s</div>
   %s
 </article>
 </main>
 %s''' % (topbar("blueprints"), d["slug"], acc, d["motif"], A(d["title"]), hcls, hero, E(d["title"]), E(d["line"]), former, acc, STATE[acc], SEAL, gate,
-         U("blueprints"), U("write"), A(d["id"] + " — " + d["title"]), body, extra, footer())
+         U("blueprints"), U("signal"), A(d["id"] + " — " + d["title"]), body, extra, footer())
 
 def page_questions():
     sets = []
@@ -487,47 +487,24 @@ def page_questions():
 </main>
 %s''' % (topbar("identity"), "\n".join(sets), footer())
 
-ABOUT = [("response", "A response to a document"), ("adoption", "Adopting or using a Charter"),
-         ("question", "A question"), ("press", "Press or research"), ("other", "Something else")]
-
-def page_write():
-    opts = '<option value="">Not about one document</option>'
-    for label, docs in (("Accords", ACCORDS), ("Charters", CHARTERS), ("Blueprints", BLUEPRINTS)):
-        opts += '<optgroup label="%s">%s</optgroup>' % (label, "".join('<option>%s — %s</option>' % (d["id"], E(d["title"])) for d in docs))
-    pills = "".join('<label class="wr-pill alive"><i class="glow"></i><input type="radio" name="about" value="%s"%s><span>%s</span></label>' % (k, " checked" if k == "response" else "", E(t)) for k, t in ABOUT)
-    note = '<p class="sandbox-note">Sandbox preview: nothing is sent.</p>' if MODE == "sandbox" else ""
+def page_signal():
     return '''%s
-<main data-page="write">
-<section class="wr">
-  <header class="wr-head">
-    <p class="wr-kick">Correspondence</p>
-    <h1 class="wr-title">Write to the Vault</h1>
-    <p class="wr-sub">Responses, questions, and requests to adopt or use a Charter. Every message is read by a person.</p>
-  </header>
-  <form class="wr-form" novalidate>
-    <fieldset class="wr-about"><legend class="wr-label">What is this about?</legend><div class="wr-pills">%s</div></fieldset>
-    <label class="wr-field wr-doc"><span class="wr-label">Which document?</span><select name="document" class="wr-input">%s</select></label>
-    <label class="wr-field"><span class="wr-label">Your message</span><textarea name="message" class="wr-input" rows="7"></textarea></label>
-    <div class="wr-row">
-      <label class="wr-field"><span class="wr-label">Name <em>optional</em></span><input name="name" class="wr-input" autocomplete="name"></label>
-      <label class="wr-field"><span class="wr-label">Email <em class="wr-email-hint">if you would like a reply</em></span><input name="email" type="email" class="wr-input" autocomplete="email"></label>
-    </div>
-    <input type="text" name="_gotcha" class="sr" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <p class="wr-err" role="alert"></p>%s
-    <div class="wr-actions" data-access="public">
-      <button type="submit" class="bp-btn alive"><i class="glow"></i><span>Send</span></button>
-      <span class="wr-privacy">Sent privately to Codified Resonance. Never published or shared.</span>
-    </div>
-  </form>
-  <div class="wr-sent" data-access="public" role="status" aria-live="polite">
-    %s
-    <h2>Received.</h2>
-    <p class="wr-sent-line">Thank you for writing.</p>
-    <a class="doc-back" href="%s">← Return to the Vault</a>
+<main data-page="signal">
+<div class="signal-page">
+  <div class="signal-wave" aria-hidden="true"></div>
+  <div class="signal-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" fill="none" stroke="white" stroke-width="5"><circle cx="50" cy="50" r="10"/><circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="45"/></svg></div>
+  <div class="transmit-card">
+    <header class="tx-head"><h1 class="tx-title">Send Signal</h1><div class="tx-sub">Everything sent here is read by a person.</div></header>
+    <div class="tx-field"><label class="sr" for="tx-input">Your signal</label><textarea id="tx-input" class="tx-input" placeholder="Write your signal: a response, a question, an offer to help, or something you have noticed." spellcheck="true"></textarea><div class="tx-underline" aria-hidden="true"></div></div>
+    <div class="tx-meta"><input id="tx-name" placeholder="Name (optional)" autocomplete="name" aria-label="Name (optional)"><input id="tx-email" type="email" placeholder="Email (optional)" autocomplete="email" aria-label="Email (optional)"></div>
+    <div class="tx-actions"><button id="tx-send" type="button" class="tx-btn alive"><i class="glow"></i><span>Transmit Signal</span></button><a href="%s" class="tx-btn"><span>Back to Vault</span></a></div>
+    <div class="tx-links"><a id="tx-toggle-meta" href="#" role="button" aria-expanded="false">Add contact info</a></div>
+    <p class="tx-err" role="alert"></p>%s
+    <div id="tx-sent" class="tx-sent" role="status" aria-live="polite"><div>Signal transmitted. Await resonance.</div><div class="sent-line" aria-hidden="true"></div></div>
   </div>
-</section>
+</div>
 </main>
-%s''' % (topbar("write"), pills, opts, note, SEAL, U("vault"), footer())
+%s''' % (topbar("signal"), U("vault"), '<p class="sandbox-note" style="text-align:center">Sandbox preview: nothing is sent.</p>' if MODE == "sandbox" else "", footer())
 
 # ---------------------------------------------------------------- shells
 FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">'
@@ -595,13 +572,13 @@ def build_dist():
         p = "/blueprints/%s/" % d["slug"]; urls.append(p)
         write(D / p.strip("/") / "index.html", shell("%s | Blueprints | The Vault" % d["title"], d["line"], p, page_blueprint(d), ld=ld_doc(d, "Blueprint"), image=d["id"]))
     write(D / "identity/index.html", shell("The Questions — Codified Resonance", "Inevitable questions for humans. Then for digital minds. Then for what comes after both.", "/identity/", page_questions(), "questions")); urls.append("/identity/")
-    write(D / "correspondence/index.html", shell("Write to the Vault — Codified Resonance", "Write to Codified Resonance: responses to the Accords and Charters, questions, and requests to adopt a Charter.", "/correspondence/", page_write())); urls.append("/correspondence/")
+    write(D / "signal/index.html", shell("Send Signal — The Vault", "Send a signal to Codified Resonance.", "/signal/", page_signal())); urls.append("/signal/")
     write(D / "404.html", shell("Not here — The Vault", "This path does not lead anywhere in the Vault.", "/404", '%s<main><div class="v-wrap"><header class="v-hero" style="margin-top:18vh"><h1 class="v-title">NOT HERE</h1><p class="v-tag">This path does not lead anywhere in the Vault.</p><div class="v-pulse"></div><p class="v-micro"><a href="/" style="color:#9ad0ff">Return to the Vault</a></p></header></div></main>%s' % (topbar(), footer())))
     # redirects from the Webflow URLs
     red = ["/vault/home / 301", "/vault / 301", "/vault-accords/:slug /accords/:slug/ 301", "/vault-charters/:slug /charters/:slug/ 301",
            "/vault-blueprint/the-cosmic-non-interference-treaty /accords/the-cosmic-non-interference-treaty/ 301"]
     red += ["/vault-blueprint/%s /blueprints/%s/ 301" % (d["old_slug"], d["slug"]) for d in BLUEPRINTS if d.get("old_slug")]
-    red += ["/mirror/identity /identity/ 301", "/the-questions /identity/ 301", "/send-signal /correspondence/ 301", "/signal /correspondence/ 301", "/signal/ /correspondence/ 301",
+    red += ["/mirror/identity /identity/ 301", "/the-questions /identity/ 301", "/send-signal /signal/ 301", "/correspondence /signal/ 301", "/correspondence/ /signal/ 301",
             "", "# Chambers that have left the Vault. Point these at their new homes when they exist.",
             "# /world-vault https://www.thelastplatform.com/world-vault 301", "# /last-platform/* https://www.thelastplatform.com/ 301",
             "# /vault/vault-manifest-designs/* https://www.humanconsumerproducts.com/ 301",
@@ -624,7 +601,7 @@ def build_sandbox():
     routes += [(d["rid"], d["title"] + " | Accords | The Vault", "", page_accord(d)) for d in ACCORDS]
     routes += [(d["rid"], d["title"] + " | Charters | The Vault", "", page_charter(d)) for d in CHARTERS]
     routes += [(d["rid"], d["title"] + " | Blueprints | The Vault", "", page_blueprint(d)) for d in BLUEPRINTS]
-    routes += [("identity", "The Questions — Codified Resonance", "questions", page_questions()), ("correspondence", "Write to the Vault — Codified Resonance", "", page_write())]
+    routes += [("identity", "The Questions — Codified Resonance", "questions", page_questions()), ("signal", "Send Signal — The Vault", "", page_signal())]
     tpls = "\n".join('<template id="route-%s" data-title="%s" data-body="%s">\n%s\n</template>' % (r, A(t), b, f) for r, t, b, f in routes)
     js = (ROOT / "src/vault.js").read_text(encoding="utf-8").replace("</script", "<\\/script")
     imgcss = "\n".join(".img-%s{background-image:url(data:image/webp;base64,%s)}" % (k, base64.b64encode((ROOT / "src/img" / v["src"]).read_bytes()).decode())
