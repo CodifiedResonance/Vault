@@ -53,16 +53,17 @@
       if(t - last < 33) return; last = t;
       if(document.body.classList.contains('paper')) { ctx.clearRect(0,0,w,h); return; }
       ctx.clearRect(0,0,w,h);
-      var R = 190, px = pointer.x, py = pointer.y, near = [];
+      var R = 170, px = pointer.x, py = pointer.y, near = [];
+      var tide = 0.18 + 0.82 * Math.pow(0.5 + 0.5 * Math.sin(t / 19000), 2.2);
       for(var i = 0; i < pts.length; i++){
         var x = pts[i][0], y = pts[i][1];
         var breath = 0.5 + 0.5 * Math.sin(t/2600 - (x*0.004 + y*0.006));
-        var a = 0.035 + breath * 0.05, r = 0.7;
+        var a = (0.006 + breath * 0.03) * tide, r = 0.6;
         var dx = x - px, dy = y - py, d = Math.sqrt(dx*dx + dy*dy);
         if(d < R){
           var k = 1 - d / R;
-          x += dx / (d || 1) * k * 7; y += dy / (d || 1) * k * 7;
-          a += k * 0.55; r += k * 1.1;
+          x += dx / (d || 1) * k * 5; y += dy / (d || 1) * k * 5;
+          a += k * 0.22; r += k * 0.6;
           near.push([x, y, k]);
         }
         ctx.fillStyle = 'rgba(120,210,255,' + a.toFixed(3) + ')';
@@ -72,7 +73,7 @@
         for(var n = m + 1; n < near.length; n++){
           var ax = near[m][0] - near[n][0], ay = near[m][1] - near[n][1];
           if(ax*ax + ay*ay < GAP*GAP*2.3){
-            ctx.strokeStyle = 'rgba(120,210,255,' + (Math.min(near[m][2], near[n][2]) * 0.3).toFixed(3) + ')';
+            ctx.strokeStyle = 'rgba(120,210,255,' + (Math.min(near[m][2], near[n][2]) * 0.12).toFixed(3) + ')';
             ctx.lineWidth = 0.6; ctx.beginPath(); ctx.moveTo(near[m][0], near[m][1]); ctx.lineTo(near[n][0], near[n][1]); ctx.stroke();
           }
         }

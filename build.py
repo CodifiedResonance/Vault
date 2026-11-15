@@ -293,7 +293,7 @@ def page_home():
     <i class="glow"></i>
     <p class="v-door-kicker">Identity</p>
     <h2 class="v-door-title">The Questions</h2>
-    <p class="v-door-line">You do not ask these questions. They ask you.</p>
+    <p class="v-door-line">Every human will answer these. Few will do it knowingly.</p>
     <div class="v-door-states"><span><i style="--c:#E8E2D6"></i>For humans · open</span><span><i style="--c:#93A9BE"></i>For digital minds · held</span><span><i style="--c:#8B85A6"></i>For the merged · sealed</span></div>
     <span class="v-door-go" aria-hidden="true">→</span>
   </a>
