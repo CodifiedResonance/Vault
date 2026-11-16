@@ -445,13 +445,12 @@ def page_blueprint(d):
     %s
     %s
   </div>
-  <div class="bp-bar"><a href="%s">← Back to Vault</a><a href="%s" data-write="response" data-doc="%s">Send Signal</a></div>
   <div class="bp-body">%s</div>
   %s
 </article>
 </main>
 %s''' % (topbar("blueprints"), d["slug"], acc, d["motif"], A(d["title"]), hcls, hero, E(d["title"]), E(d["line"]), former, acc, STATE[acc], SEAL, gate,
-         U("blueprints"), U("signal"), A(d["id"] + " — " + d["title"]), body, extra, footer())
+         body, extra, footer())
 
 def page_questions():
     sets = []

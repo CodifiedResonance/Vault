@@ -982,3 +982,4 @@ body.paper .doc-adopt .bp-btn{color:#111;background:#fff;border-color:#111;box-s
   #panel-charters .ch-plate-code{color:rgba(var(--cyan),.30);transition:color .6s,text-shadow .6s}
   #panel-charters .ch-card:hover .ch-plate-code{color:rgba(var(--cyan),.6);text-shadow:0 0 30px rgba(var(--blue-rgb),.45)}
 }
+.bp-msg{padding:0 22px;max-width:46ch;margin-left:auto;margin-right:auto;line-height:1.5}
