@@ -513,10 +513,16 @@ def page_signal():
 FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">'
 LAYERS = '<canvas id="lattice" aria-hidden="true"></canvas><div class="shimmer" aria-hidden="true"></div><div class="pulse-overlay" aria-hidden="true"></div>'
 
+import hashlib
+VER = hashlib.sha256((ROOT / "src/vault.css").read_bytes() + (ROOT / "src/vault.js").read_bytes()).hexdigest()[:10]
+
 def shell(title, desc, path, fragment, body_class="", ld=None, image=None):
     cfg = {"sandbox": False, "formspree": SITE["formspree"]}
     im = SITE.get("images", {}).get(image) if image else None
     og = '<meta property="og:image" content="%s/assets/img/%s"><meta name="twitter:card" content="summary_large_image">' % (BASE, im["src"]) if im else ""
+    return _shell(title, desc, path, fragment, body_class, ld, cfg, og).replace("__VER__", VER)
+
+def _shell(title, desc, path, fragment, body_class, ld, cfg, og):
     return '''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -529,7 +535,7 @@ def shell(title, desc, path, fragment, body_class="", ld=None, image=None):
 <meta name="theme-color" content="#020202">%s
 <link rel="icon" href="data:image/svg+xml,%%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%%3E%%3Ccircle cx='32' cy='32' r='30' fill='%%23020202'/%%3E%%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%%233A9BD9' stroke-width='2'/%%3E%%3Ccircle cx='32' cy='32' r='5' fill='%%233A9BD9'/%%3E%%3C/svg%%3E">
 %s
-<link rel="stylesheet" href="/assets/vault.css">
+<link rel="stylesheet" href="/assets/vault.css?v=__VER__">
 %s
 </head>
 <body class="%s">
@@ -538,7 +544,7 @@ def shell(title, desc, path, fragment, body_class="", ld=None, image=None):
 %s
 </div>
 <script>window.VAULT=%s;</script>
-<script src="/assets/vault.js" defer></script>
+<script src="/assets/vault.js?v=__VER__" defer></script>
 </body>
 </html>
 ''' % (E(title), A(desc), BASE, path, A(title), A(desc), BASE, path, og, FONTS,
@@ -587,7 +593,7 @@ def build_dist():
             "# /vault/vault-manifest-designs/* https://www.humanconsumerproducts.com/ 301",
             "/vault-transmissions/* / 302", "/vault/vault-manifest-designs/* / 302", "/echoes/* / 302", "/unsolicited/* / 302"]
     write(D / "_redirects", "\n".join(red) + "\n")
-    write(D / "_headers", "/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n/assets/*\n  Cache-Control: public, max-age=3600\n")
+    write(D / "_headers", "/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n")
     write(D / "robots.txt", "User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n" % BASE)
     write(D / "sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % "\n".join("  <url><loc>%s%s</loc></url>" % (BASE, u) for u in urls))
     idx = ["# The Vault — Codified Resonance", "", "> Foundational documents for the transition to a world shared with artificial intelligence. Accords witness agreements at civilisational to cosmic scale. Charters are model instruments for local adoption. Canonical text lives at the URLs below.", "", "## Accords"]
