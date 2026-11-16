@@ -233,8 +233,17 @@
         var empty = $('.v-empty', panel); if(empty) empty.classList.toggle('is-shown', !shown);
       });
     }
+    var tabRow = $('.v-tabs', root), shelfEl = $('#blueprints', root), bar = $('.topbar');
+    function stickOffset(){
+      var st = tabRow && getComputedStyle(tabRow).position === 'sticky';
+      return (st ? tabRow.getBoundingClientRect().bottom : 0) + 14;
+    }
+    function goTo(el){
+      var z = zoomOf(), top = el.getBoundingClientRect().top + window.scrollY - stickOffset();
+      window.scrollTo({ top: Math.max(0, top), behavior: reduce ? 'auto' : 'smooth' }); void z;
+    }
     function setMode(m, quiet){
-      if(m === 'blueprints'){ var shelf = $('#blueprints', root); if(shelf && !quiet) shelf.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block:'start' }); return; }
+      if(m === 'blueprints'){ if(shelfEl && !quiet) goTo(shelfEl); return; }
       if(MODES.indexOf(m) < 0) m = 'accords';
       tabs.forEach(function(b){ b.setAttribute('aria-selected', b.dataset.panel === m ? 'true' : 'false'); });
       MODES.forEach(function(k){
@@ -242,7 +251,21 @@
         $('#vault-tags-' + k, root).classList.toggle('is-active', k === m);
       });
       filter();
+      if(!quiet){
+        var pn = $('#panel-' + m, root), t = pn.getBoundingClientRect().top;
+        if(t < stickOffset() - 1 || t > window.innerHeight * 0.85) goTo($('.v-search', root).offsetParent ? (getComputedStyle(tabRow).position === 'sticky' ? pn : $('.v-controls', root)) : pn);
+      }
     }
+    /* the switch knows when you have reached the Blueprints */
+    var hdr = function(){ if(bar) document.documentElement.style.setProperty('--hdr', bar.offsetHeight + 'px'); };
+    hdr(); window.addEventListener('resize', hdr);
+    var spy = function(){
+      if(!shelfEl || !tabRow) return;
+      tabRow.classList.toggle('at-below', shelfEl.getBoundingClientRect().top < stickOffset() + 40);
+      tabRow.classList.toggle('is-stuck', tabRow.getBoundingClientRect().top <= (bar ? bar.offsetHeight + 1 : 0) && window.scrollY > 40);
+    };
+    window.addEventListener('scroll', spy, { passive:true }); spy();
+    teardown.push(function(){ window.removeEventListener('scroll', spy); window.removeEventListener('resize', hdr); });
     homeSetMode = setMode;
     tabs.forEach(function(b){ b.addEventListener('click', function(){
       var m = b.dataset.panel;

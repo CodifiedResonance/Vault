@@ -815,3 +815,67 @@ body.paper .doc-adopt .bp-btn{color:#111;background:#fff;border-color:#111;box-s
   .ch-card .ch-plate-code{font-size:48px;bottom:12px}
   .ch-card .ch-plate-mark{bottom:16px}
 }
+
+/* ==========================================================
+   IMAGE-LED CARDS ON EVERY SCREEN
+   ========================================================== */
+.ac-card .ac-media{aspect-ratio:4/5}
+.ac-card .ac-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:110px 20px 20px;
+  background:linear-gradient(180deg,rgba(2,3,5,0) 0,rgba(2,3,5,.7) 40%,rgba(2,3,5,.94) 100%)}
+.ac-card .ac-name{font-size:21px;line-height:1.16;letter-spacing:-.01em}
+.ac-card .ac-line{font-size:14.5px;color:rgba(231,240,247,.84)}
+.ac-card .ac-meta{color:rgba(191,210,230,.6)}
+.ac-card::after{content:"";position:absolute;left:20px;right:20px;bottom:0;height:1px;background:linear-gradient(90deg,rgba(var(--cyan),.35),transparent);z-index:3;opacity:.6;transition:opacity .4s}
+.ac-card:hover::after{opacity:1}
+.bp-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+.bp-card .bp-card-media{aspect-ratio:4/5}
+.bp-card .bp-card-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:90px 18px 18px;
+  background:linear-gradient(180deg,rgba(2,3,5,0) 0,rgba(2,3,5,.76) 44%,rgba(2,3,5,.95) 100%)}
+.bp-card .v-name{font-size:19px;line-height:1.2}
+.bp-card .v-meta{font-size:13.5px;margin-top:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.bp-card,.ac-card{background:#05070a}
+.card .ph{will-change:transform}
+
+/* ==========================================================
+   MOBILE — chamber switch, chips, charter spacing
+   ========================================================== */
+@media(max-width:640px){
+  #panel-charters .v-grid,.ch-page .doc-related .v-grid{gap:20px}
+  .ch-card{border-bottom:1px solid rgba(var(--cyan),.08)}
+
+  .v-controls{display:contents}
+  .v-tabs{position:sticky;top:var(--hdr,58px);z-index:15;display:grid !important;grid-template-columns:repeat(3,1fr);gap:0;
+    margin:0 -18px 14px;padding:0 18px;background:rgba(2,3,4,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    -webkit-mask-image:none;mask-image:none;overflow:visible;border-bottom:1px solid rgba(255,255,255,.06);transition:box-shadow .4s}
+  .v-tabs.is-stuck{box-shadow:0 14px 24px -12px rgba(0,0,0,.9)}
+  .v-tab[data-panel="questions"]{display:none}
+  .v-tab{border-radius:0;background:none !important;box-shadow:none !important;text-align:center;padding:15px 4px 14px;
+    font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(231,240,247,.5);transform:none !important;position:relative}
+  .v-tab::before{display:none}
+  .v-tab::after{content:"";display:block;opacity:1 !important;position:absolute;left:22%;right:22%;bottom:-1px;top:auto;height:1px;border:none !important;border-radius:0;
+    background:rgb(var(--cyan));box-shadow:0 0 10px rgb(var(--cyan));transform:scaleX(0) !important;transition:transform .45s var(--ease);animation:none !important;inset:auto 22% -1px 22%}
+  .v-tab[aria-selected="true"]{color:#fff}
+  .v-tab[aria-selected="true"]::after{transform:scaleX(1) !important}
+  .v-tabs.at-below .v-tab[aria-selected="true"]{color:rgba(231,240,247,.5)}
+  .v-tabs.at-below .v-tab[aria-selected="true"]::after{transform:scaleX(0) !important}
+  .v-tabs.at-below .v-tab[data-panel="blueprints"]{color:#fff}
+  .v-tabs.at-below .v-tab[data-panel="blueprints"]::after{transform:scaleX(1) !important}
+  .v-arrow{display:none}
+  .v-search{margin:0 0 12px}
+  .v-search input{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.08)}
+  .v-tags{flex-wrap:nowrap !important;overflow-x:auto !important;margin:0 -18px !important;padding:2px 18px 4px !important;gap:8px;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 18px,#000 calc(100% - 40px),transparent 100%) !important;
+    mask-image:linear-gradient(90deg,transparent 0,#000 18px,#000 calc(100% - 40px),transparent 100%) !important}
+  .v-tags::-webkit-scrollbar{display:none}
+  .v-tags .v-chip{flex:none;white-space:nowrap;font-size:12px;padding:7px 12px;background:transparent}
+  .v-panel{margin-top:20px}
+  #blueprints{scroll-margin-top:calc(var(--hdr,58px) + 60px)}
+}
+@media(max-width:640px){
+  .topbar{background:rgba(2,3,4,.94)}
+  .v-tabs{top:calc(var(--hdr,58px) - 1px)}
+  .v-tabs .v-tab[data-panel]::after{inset:auto 24% -1px 24%;border:none !important;border-radius:0;height:1px;top:auto}
+}
+.ac-page .doc-back{display:flex;max-width:920px;margin:28px auto 0}
+.ac-page .doc-write{margin-bottom:0}
+@media(max-width:640px){.v-tabs .v-tab[data-panel]::after{height:2px;bottom:-1px;background:rgb(var(--cyan));box-shadow:0 0 6px rgba(var(--cyan),.55)}}

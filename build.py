@@ -263,8 +263,8 @@ def page_home():
     <div class="v-tabs" role="tablist" aria-label="Vault chambers">
       <button class="v-tab" role="tab" aria-selected="true" aria-controls="panel-accords" data-panel="accords"><span>Accords</span></button>
       <button class="v-tab" role="tab" aria-selected="false" aria-controls="panel-charters" data-panel="charters"><span>Charters</span></button>
-      <button class="v-tab" role="tab" aria-selected="false" data-panel="blueprints"><span>Blueprints ↓</span></button>
-      <a class="v-tab" data-panel="questions" href="%s"><span>The Questions →</span></a>
+      <button class="v-tab" role="tab" aria-selected="false" data-panel="blueprints"><span>Blueprints<em class="v-arrow"> ↓</em></span></button>
+      <a class="v-tab" data-panel="questions" href="%s"><span>The Questions<em class="v-arrow"> →</em></span></a>
     </div>
     <div class="v-search" role="search"><label class="sr" for="vault-search">Search titles</label><input id="vault-search" type="search" placeholder="Search titles…" autocomplete="off"></div>
   </div>
