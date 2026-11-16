@@ -168,8 +168,9 @@ def topbar(current=""):
     links = [("accords", "Accords"), ("charters", "Charters"), ("blueprints", "Blueprints"), ("identity", "The Questions"), ("signal", "Send Signal")]
     return '''<header class="topbar">
   <a class="mark" href="%s" aria-label="The Vault — home"><i class="mark-glyph" aria-hidden="true">⚶</i><span>The Vault</span></a>
-  <nav class="toplinks" aria-label="Chambers">%s</nav>
-</header>''' % (U("vault"), "".join('<a href="%s"%s>%s</a>' % (U(k), ' aria-current="page"' if k == current else "", t) for k, t in links))
+  <button type="button" class="menu-btn" aria-expanded="false" aria-controls="chambers"><span class="menu-word">Menu</span><i aria-hidden="true"></i></button>
+  <nav class="toplinks" id="chambers" aria-label="Chambers"><a class="menu-home" href="%s">The Vault</a>%s</nav>
+</header>''' % (U("vault"), U("vault"), "".join('<a href="%s"%s>%s</a>' % (U(k), ' aria-current="page"' if k == current else "", t) for k, t in links))
 
 def footer():
     return '''<footer class="foot">
@@ -351,6 +352,8 @@ def page_charter(d):
     return '''%s
 <main data-page="charter">
 <div class="ch-progress" aria-hidden="true"></div>
+<button type="button" class="ch-sheet-btn" aria-expanded="false" aria-controls="ch-sheet"><i aria-hidden="true"></i><span>Sections</span><em></em></button>
+<div class="ch-sheet" id="ch-sheet" role="dialog" aria-label="Sections of this Charter"><div class="ch-sheet-in"><p>Sections</p>%s</div></div>
 <article class="doc ch-page">
   <header class="doc-open">
     <p class="doc-kick"><span>Charter</span><span class="doc-status">%s</span></p>
@@ -377,7 +380,7 @@ def page_charter(d):
   </div>
 </article>
 </main>
-%s''' % (topbar("charters"), E(d["status"]), E(d["title"]), E(d["line"]),
+%s''' % (topbar("charters"), index, E(d["status"]), E(d["title"]), E(d["line"]),
          strip([("Jurisdiction", d["jurisdiction"]), ("Scope", d["scope"]), ("Domain", d["domain"]), ("Standing", d["standing"]), ("Version", d["id"])]),
          index, sec_html(main), sec_html(second), strip([("Standing", d["standing"]), ("Version", d["id"])]),
          "\n".join(charter_card(c) for c in related), U("signal"), A(d["id"] + " — " + d["title"]), d["id"], U("charters"), footer())
