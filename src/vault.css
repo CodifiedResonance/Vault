@@ -879,3 +879,8 @@ body.paper .doc-adopt .bp-btn{color:#111;background:#fff;border-color:#111;box-s
 .ac-page .doc-back{display:flex;max-width:920px;margin:28px auto 0}
 .ac-page .doc-write{margin-bottom:0}
 @media(max-width:640px){.v-tabs .v-tab[data-panel]::after{height:2px;bottom:-1px;background:rgb(var(--cyan));box-shadow:0 0 6px rgba(var(--cyan),.55)}}
+@media(max-width:640px){
+  .v-tags .v-chip.is-on{padding-left:27px}
+  .v-tags .v-chip.is-on::before{left:12px}
+  .v-tags{padding-top:12px !important;padding-bottom:14px !important;margin-top:-10px !important;margin-bottom:-12px !important}
+}
