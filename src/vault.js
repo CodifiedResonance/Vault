@@ -234,10 +234,13 @@
       });
     }
     var tabRow = $('.v-tabs', root), shelfEl = $('#blueprints', root), bar = $('.topbar');
-    function stickOffset(){
-      var st = tabRow && getComputedStyle(tabRow).position === 'sticky';
-      return (st ? tabRow.getBoundingClientRect().bottom : 0) + 14;
+    var ctrl = $('.v-controls', root);
+    function stuckEl(){
+      if(tabRow && getComputedStyle(tabRow).position === 'sticky') return tabRow;
+      if(ctrl && getComputedStyle(ctrl).position === 'sticky') return ctrl;
+      return null;
     }
+    function stickOffset(){ var el = stuckEl(); return (el ? el.getBoundingClientRect().bottom : 0) + 14; }
     function goTo(el){
       var z = zoomOf(), top = el.getBoundingClientRect().top + window.scrollY - stickOffset();
       window.scrollTo({ top: Math.max(0, top), behavior: reduce ? 'auto' : 'smooth' }); void z;
@@ -252,8 +255,8 @@
       });
       filter();
       if(!quiet){
-        var pn = $('#panel-' + m, root), t = pn.getBoundingClientRect().top;
-        if(t < stickOffset() - 1 || t > window.innerHeight * 0.85) goTo($('.v-search', root).offsetParent ? (getComputedStyle(tabRow).position === 'sticky' ? pn : $('.v-controls', root)) : pn);
+        var pn = $('#panel-' + m, root), t = ($('#vault-tags-' + m, root) || pn).getBoundingClientRect().top;
+        if(t < stickOffset() - 1 || t > window.innerHeight * 0.85) goTo($('#vault-tags-' + m, root) || pn);
       }
     }
     /* the switch knows when you have reached the Blueprints */
@@ -262,7 +265,8 @@
     var spy = function(){
       if(!shelfEl || !tabRow) return;
       tabRow.classList.toggle('at-below', shelfEl.getBoundingClientRect().top < stickOffset() + 40);
-      tabRow.classList.toggle('is-stuck', tabRow.getBoundingClientRect().top <= (bar ? bar.offsetHeight + 1 : 0) && window.scrollY > 40);
+      var se = stuckEl(), stuck = !!se && window.scrollY > 40 && se.getBoundingClientRect().top <= (se === tabRow && bar ? bar.offsetHeight + 1 : 1);
+      tabRow.classList.toggle('is-stuck', stuck); if(ctrl) ctrl.classList.toggle('is-stuck', stuck);
     };
     window.addEventListener('scroll', spy, { passive:true }); spy();
     teardown.push(function(){ window.removeEventListener('scroll', spy); window.removeEventListener('resize', hdr); });
