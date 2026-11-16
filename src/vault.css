@@ -745,26 +745,73 @@ body.paper .doc-adopt .bp-btn{color:#111;background:#fff;border-color:#111;box-s
   .v-tags{gap:8px}
   .v-tags:not(.is-active){display:none}
 }
-/* mobile: cards two to a row, contents compacted to suit half width */
+/* ==========================================================
+   MOBILE — image-led, single column, Blueprints as a swipeable row
+   ========================================================== */
 @media(max-width:640px){
-  .v-grid,.bp-grid,.doc-related .v-grid{grid-template-columns:1fr 1fr;gap:12px}
-  .v-grid>.card:last-child:nth-child(odd){grid-column:1/-1}
-  .card{border-radius:10px}
-  .ac-media,.bp-card-media{aspect-ratio:4/3}
-  .ac-body,.ch-body,.bp-card-body{padding:10px 10px 12px}
-  .ac-head{flex-direction:column;align-items:flex-start;gap:3px;margin-bottom:6px}
-  .ac-eyebrow,.ac-state,.v-eyebrow,.state{font-size:9px;letter-spacing:.14em}
-  .ac-name,.ch-name,.v-name{font-size:14.5px;line-height:1.25}
-  .ac-line,.ch-summary,.v-meta{font-size:12px;line-height:1.4;margin-top:5px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-  .ac-meta,.ch-meta,.ch-eyebrow{display:none}
-  .ch-rail{padding:8px 10px 7px}.ch-rail-left,.ch-rail-right{font-size:9px;letter-spacing:.14em}
-  .ch-media{aspect-ratio:4/3}
-  .ch-plate-code{font-size:22px;right:10px;top:8px}
-  .ch-plate-type{display:none}
-  .ch-plate-mark{width:26px;height:26px;left:10px;bottom:10px}
-  .bp-card-top{flex-direction:column;align-items:flex-start;gap:4px}
-  /* a lone last card spans the row and keeps its full detail */
-  .v-grid>.card:last-child:nth-child(odd) .ac-media,.v-grid>.card:last-child:nth-child(odd) .bp-card-media,.v-grid>.card:last-child:nth-child(odd) .ch-media{aspect-ratio:16/8}
-  .v-grid>.card:last-child:nth-child(odd) .ac-head,.v-grid>.card:last-child:nth-child(odd) .bp-card-top{flex-direction:row;align-items:center}
-  .v-grid>.card:last-child:nth-child(odd) .ac-name,.v-grid>.card:last-child:nth-child(odd) .ch-name,.v-grid>.card:last-child:nth-child(odd) .v-name{font-size:17px}
+  /* header stays with you, quietly */
+  .topbar{position:sticky;top:0;z-index:20;width:100%;padding:12px 18px;margin:0;
+    background:linear-gradient(180deg,rgba(2,3,4,.92) 0,rgba(2,3,4,.72) 70%,rgba(2,3,4,0) 100%);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .mark-glyph{width:30px;height:30px;font-size:14px}
+  .mark span{font-size:10.5px}
+
+  .v-grid{grid-template-columns:1fr;gap:0}
+  .card:hover,.card.is-touched{transform:none}
+
+  /* Accords: full-width panels, title over the image */
+  #panel-accords .v-grid,.ac-page .doc-related .v-grid{margin:0 -18px;gap:2px}
+  .ac-card{border:none;border-radius:0;box-shadow:none;background:#05070a}
+  .ac-card:hover,.ac-card.is-touched{box-shadow:none}
+  .ac-card .ac-media{aspect-ratio:4/5}
+  .ac-card .ac-media .ph{filter:brightness(.95)}
+  .ac-card .ac-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:80px 22px 24px;
+    background:linear-gradient(180deg,rgba(2,3,5,0) 0,rgba(2,3,5,.72) 42%,rgba(2,3,5,.94) 100%)}
+  .ac-card .ac-head{margin-bottom:12px}
+  .ac-card .ac-eyebrow,.ac-card .ac-state{font-size:10px;letter-spacing:.2em}
+  .ac-card .ac-name{font-size:26px;line-height:1.12;letter-spacing:-.01em;font-weight:600}
+  .ac-card .ac-line{font-size:15.5px;margin-top:10px;color:rgba(231,240,247,.84)}
+  .ac-card .ac-meta{margin-top:14px;font-size:10px;letter-spacing:.14em;color:rgba(191,210,230,.6)}
+  .ac-card::after{content:"";position:absolute;left:22px;right:22px;bottom:0;height:1px;background:linear-gradient(90deg,rgba(var(--cyan),.35),transparent);z-index:3}
+
+  /* Charters: full-width instrument plates */
+  #panel-charters .v-grid,.ch-page .doc-related .v-grid{margin:0 -18px;gap:2px}
+  .ch-card{border:none;border-radius:0;box-shadow:none;border-top:1px solid rgba(var(--cyan),.12)}
+  .ch-card:hover,.ch-card.is-touched{box-shadow:none}
+  .ch-rail{padding:14px 22px 12px}
+  .ch-media{aspect-ratio:16/9}
+  .ch-plate-code{font-size:56px;font-weight:200;right:22px;top:auto;bottom:16px;color:rgba(var(--cyan),.22)}
+  .ch-plate-type{left:62px;bottom:26px}
+  .ch-plate-mark{left:22px;bottom:18px}
+  .ch-body{padding:18px 22px 28px}
+  .ch-name{font-size:23px;line-height:1.16;letter-spacing:-.01em}
+  .ch-summary{font-size:15px;margin-top:10px}
+  .ch-meta{font-size:10px;letter-spacing:.12em}
+
+  /* Blueprints: a swipeable row of tall image cards */
+  .v-below{margin-top:64px}
+  .v-below-head{display:block}.v-below-head .v-micro{display:block;margin-top:8px;font-size:12.5px}
+  .bp-grid{display:flex;gap:12px;margin:24px -18px 0;padding:0 18px 6px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:18px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .bp-grid::-webkit-scrollbar{display:none}
+  .bp-card{flex:0 0 78%;scroll-snap-align:start;border-radius:14px;border:1px solid rgba(var(--blue-rgb),.16);box-shadow:none;background:#05070a}
+  .bp-card:hover,.bp-card.is-touched{box-shadow:0 0 24px rgba(var(--blue-rgb),.22)}
+  .bp-card .bp-card-media{aspect-ratio:3/4}
+  .bp-card .bp-card-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:70px 16px 18px;
+    background:linear-gradient(180deg,rgba(2,3,5,0) 0,rgba(2,3,5,.78) 45%,rgba(2,3,5,.95) 100%)}
+  .bp-card .v-name{font-size:20px;line-height:1.18}
+  .bp-card .v-meta{font-size:13.5px;margin-top:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .bp-dots{display:flex;justify-content:center;gap:7px;margin-top:16px}
+  .bp-dots i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18);transition:background .3s,transform .3s}
+  .bp-dots i.on{background:rgb(var(--cyan));transform:scale(1.25)}
+
+  .v-door{margin-top:72px}
+}
+.bp-dots{display:none}
+@media(max-width:640px){.bp-dots{display:flex}}
+@media(max-width:640px){
+  .ch-card .ch-media{aspect-ratio:16/7}
+  .ch-card .ch-plate-type{display:none}
+  .ch-card .ch-plate-code{font-size:48px;bottom:12px}
+  .ch-card .ch-plate-mark{bottom:16px}
 }

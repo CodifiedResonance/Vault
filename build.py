@@ -287,6 +287,7 @@ def page_home():
     <p class="v-below-kicker">Below</p>
     <div class="v-below-head"><h2 class="v-below-title">Blueprints</h2><span class="v-micro">Foundational writing. Some open, some gifted, one sealed.</span></div>
     <div class="v-grid bp-grid">%s</div>
+    <div class="bp-dots" aria-hidden="true">%s</div>
     <p class="v-empty">Nothing here matches.</p>
   </section>
 
@@ -304,7 +305,7 @@ def page_home():
          chips(ACCORDS, ["cosmic", "planetary", "non-interference", "stewardship", "celestial rights", "deep time", "custodianship", "succession"]),
          chips(CHARTERS, ["local", "civic", "robotics", "algorithms", "relational ai", "protection", "stewardship"]),
          "\n".join(accord_card(d) for d in ACCORDS), "\n".join(charter_card(d) for d in reversed(CHARTERS)),
-         "\n".join(blueprint_card(d) for d in BLUEPRINTS), U("identity"), footer())
+         "\n".join(blueprint_card(d) for d in BLUEPRINTS), "<i></i>" * len(BLUEPRINTS), U("identity"), footer())
 
 def strip(items, n=None):
     return '<dl class="doc-strip strip-%d">%s</dl>' % (n or len(items), "".join("<div><dt>%s</dt><dd>%s</dd></div>" % (E(k), E(v)) for k, v in items))

@@ -259,6 +259,16 @@
       card.addEventListener('pointerdown', function(){ mo.start(); setTimeout(mo.stop, 2400); });
       teardown.push(mo.destroy);
     });
+    /* blueprint row: dots follow the swipe */
+    var row = $('.bp-grid', root), dots = $$('.bp-dots i', root);
+    if(row && dots.length){
+      var mark = function(){
+        var cards = $$('.bp-card:not(.card-hidden)', row), best = 0, bd = 1e9, rl = row.getBoundingClientRect().left;
+        cards.forEach(function(c, i){ var d = Math.abs(c.getBoundingClientRect().left - rl - 18); if(d < bd){ bd = d; best = i; } });
+        dots.forEach(function(d, i){ d.classList.toggle('on', i === best); d.style.display = i < cards.length ? '' : 'none'; });
+      };
+      row.addEventListener('scroll', function(){ requestAnimationFrame(mark); }, { passive:true }); mark();
+    }
     var h = (location.hash || '').slice(1);
     setMode(h === 'charters' ? 'charters' : 'accords', true);
     if(h === 'blueprints') setTimeout(function(){ setMode('blueprints'); }, 80);
