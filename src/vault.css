@@ -739,3 +739,9 @@ body.paper .doc-adopt .bp-btn{color:#111;background:#fff;border-color:#111;box-s
   .v-hero .v-glyph{display:none}
   .v-hero{margin-top:5vh}
 }
+/* mobile: pills and chips wrap into rows again (no sideways scrolling) */
+@media(max-width:640px){
+  .v-tabs,.v-tags{flex-wrap:wrap;overflow:visible;margin:0;padding:0;-webkit-mask-image:none;mask-image:none;scroll-snap-type:none}
+  .v-tags{gap:8px}
+  .v-tags:not(.is-active){display:none}
+}
