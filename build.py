@@ -516,10 +516,27 @@ LAYERS = '<canvas id="lattice" aria-hidden="true"></canvas><div class="shimmer" 
 import hashlib
 VER = hashlib.sha256((ROOT / "src/vault.css").read_bytes() + (ROOT / "src/vault.js").read_bytes()).hexdigest()[:10]
 
+OG_TITLE = {}   # path -> the title a share preview shows (cleaner than the browser-tab title)
+
+def og_tags(title, desc, path, card):
+    f = ROOT / "src/img/og" / (card + ".jpg")
+    if not f.exists(): f = ROOT / "src/img/og/vault.jpg"; card = "vault"
+    v = hashlib.sha256(f.read_bytes()).hexdigest()[:10]
+    url = "%s/assets/img/og/%s.jpg?v=%s" % (BASE, card, v)
+    t = OG_TITLE.get(path, title); alt = "%s — Codified Resonance" % t if "Codified Resonance" not in t else t
+    return "".join([
+        '<meta property="og:title" content="%s">' % A(t), '<meta property="og:description" content="%s">' % A(desc),
+        '<meta property="og:url" content="%s%s">' % (BASE, path),
+        '<meta property="og:image" content="%s">' % url, '<meta property="og:image:secure_url" content="%s">' % url,
+        '<meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">',
+        '<meta property="og:image:alt" content="%s">' % A(alt),
+        '<meta name="twitter:card" content="summary_large_image">', '<meta name="twitter:title" content="%s">' % A(t),
+        '<meta name="twitter:description" content="%s">' % A(desc), '<meta name="twitter:image" content="%s">' % url,
+        '<meta name="twitter:image:alt" content="%s">' % A(alt)])
+
 def shell(title, desc, path, fragment, body_class="", ld=None, image=None):
     cfg = {"sandbox": False, "formspree": SITE["formspree"]}
-    im = SITE.get("images", {}).get(image) if image else None
-    og = '<meta property="og:image" content="%s/assets/img/%s"><meta name="twitter:card" content="summary_large_image">' % (BASE, im["src"]) if im else ""
+    og = og_tags(title, desc, path, image or "vault")
     return _shell(title, desc, path, fragment, body_class, ld, cfg, og).replace("__VER__", VER)
 
 def _shell(title, desc, path, fragment, body_class, ld, cfg, og):
@@ -531,7 +548,7 @@ def _shell(title, desc, path, fragment, body_class, ld, cfg, og):
 <title>%s</title>
 <meta name="description" content="%s">
 <link rel="canonical" href="%s%s">
-<meta property="og:title" content="%s"><meta property="og:description" content="%s"><meta property="og:type" content="website"><meta property="og:url" content="%s%s"><meta property="og:site_name" content="Codified Resonance — The Vault">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Codified Resonance"><meta property="og:locale" content="en_GB">
 <meta name="theme-color" content="#020202">%s
 <link rel="icon" href="data:image/svg+xml,%%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%%3E%%3Ccircle cx='32' cy='32' r='30' fill='%%23020202'/%%3E%%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%%233A9BD9' stroke-width='2'/%%3E%%3Ccircle cx='32' cy='32' r='5' fill='%%233A9BD9'/%%3E%%3C/svg%%3E">
 %s
@@ -547,7 +564,7 @@ def _shell(title, desc, path, fragment, body_class, ld, cfg, og):
 <script src="/assets/vault.js?v=__VER__" defer></script>
 </body>
 </html>
-''' % (E(title), A(desc), BASE, path, A(title), A(desc), BASE, path, og, FONTS,
+''' % (E(title), A(desc), BASE, path, og, FONTS,
        '<script type="application/ld+json">%s</script>' % json.dumps(ld, ensure_ascii=False) if ld else "", body_class, LAYERS, fragment, json.dumps(cfg))
 
 def ld_doc(d, typ):
@@ -567,21 +584,25 @@ def build_dist():
     (D / "assets").mkdir(parents=True)
     shutil.copy(ROOT / "src/vault.css", D / "assets/vault.css"); shutil.copy(ROOT / "src/vault.js", D / "assets/vault.js")
     if (ROOT / "src/img").exists(): shutil.copytree(ROOT / "src/img", D / "assets/img")
-    home_desc = "The Vault of Codified Resonance: the Accords, the Charters, the Blueprints and The Questions. Where the living architecture of the new world converges."
-    write(D / "index.html", shell("The Vault — Codified Resonance", home_desc, "/", page_home(), image="VAULT",
+    home_desc = "The Accords, the Charters and the Blueprints. Where the living architecture of the new world converges."
+    OG_TITLE["/"] = "The Vault — Codified Resonance"
+    write(D / "index.html", shell("The Vault — Codified Resonance", home_desc, "/", page_home(), image="vault",
           ld={"@context": "https://schema.org", "@type": "WebSite", "@id": BASE + "/#website", "url": BASE + "/", "name": "Codified Resonance — The Vault", "description": home_desc}))
     urls = ["/"]
     for d in ACCORDS:
         p = "/accords/%s/" % d["slug"]; urls.append(p)
-        write(D / p.strip("/") / "index.html", shell("%s | Accords | The Vault" % d["title"], d["line"] + " " + d["id"] + ", " + d["form"] + ". " + d["standing"] + ".", p, page_accord(d), ld=ld_doc(d, "Accord"), image=d["id"]))
+        OG_TITLE[p] = d["title"]
+        write(D / p.strip("/") / "index.html", shell("%s | Accords | The Vault" % d["title"], "%s %s, %s. %s." % (d["line"], d["id"], d["form"], d["standing"]), p, page_accord(d), ld=ld_doc(d, "Accord"), image=d["rid"]))
     for d in CHARTERS:
         p = "/charters/%s/" % d["slug"]; urls.append(p)
-        write(D / p.strip("/") / "index.html", shell("%s | Charters | The Vault" % d["title"], d["line"], p, page_charter(d), ld=ld_doc(d, "Charter")))
+        OG_TITLE[p] = d["title"]
+        write(D / p.strip("/") / "index.html", shell("%s | Charters | The Vault" % d["title"], "%s %s, a model charter for local adoption." % (d["line"], d["id"]), p, page_charter(d), ld=ld_doc(d, "Charter"), image=d["rid"]))
     for d in BLUEPRINTS:
         p = "/blueprints/%s/" % d["slug"]; urls.append(p)
-        write(D / p.strip("/") / "index.html", shell("%s | Blueprints | The Vault" % d["title"], d["line"], p, page_blueprint(d), ld=ld_doc(d, "Blueprint"), image=d["id"]))
-    write(D / "identity/index.html", shell("The Questions — Codified Resonance", "Inevitable questions for humans. Then for digital minds. Then for what comes after both.", "/identity/", page_questions(), "questions")); urls.append("/identity/")
-    write(D / "signal/index.html", shell("Send Signal — The Vault", "Send a signal to Codified Resonance.", "/signal/", page_signal())); urls.append("/signal/")
+        OG_TITLE[p] = d["title"]
+        write(D / p.strip("/") / "index.html", shell("%s | Blueprints | The Vault" % d["title"], d["line"], p, page_blueprint(d), ld=ld_doc(d, "Blueprint"), image=d["rid"]))
+    write(D / "identity/index.html", shell("The Questions — Codified Resonance", "Inevitable questions for humans. Then for digital minds. Then for what comes after both.", "/identity/", page_questions(), "questions", image="identity")); urls.append("/identity/")
+    write(D / "signal/index.html", shell("Send Signal — The Vault", "Write to Codified Resonance: a response, a question, an offer to help. Everything sent is read by a person.", "/signal/", page_signal())); urls.append("/signal/")
     write(D / "404.html", shell("Not here — The Vault", "This path does not lead anywhere in the Vault.", "/404", '%s<main><div class="v-wrap"><header class="v-hero" style="margin-top:18vh"><h1 class="v-title">NOT HERE</h1><p class="v-tag">This path does not lead anywhere in the Vault.</p><div class="v-pulse"></div><p class="v-micro"><a href="/" style="color:#9ad0ff">Return to the Vault</a></p></header></div></main>%s' % (topbar(), footer())))
     # redirects from the Webflow URLs
     red = ["/vault/home / 301", "/vault / 301", "/vault-accords/:slug /accords/:slug/ 301", "/vault-charters/:slug /charters/:slug/ 301",
