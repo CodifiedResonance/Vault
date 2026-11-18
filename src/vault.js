@@ -298,7 +298,12 @@
     }
     var h = (location.hash || '').slice(1);
     setMode(h === 'charters' ? 'charters' : 'accords', true);
-    if(h === 'blueprints') setTimeout(function(){ setMode('blueprints'); }, 80);
+    if(h === 'blueprints' || h === 'charters') setTimeout(function(){ setMode(h); }, 80);
+    /* live site: menu links like /#charters change only the hash on this page */
+    if(!CFG.sandbox){
+      var onHash = function(){ var k = (location.hash || '').slice(1); if(k === 'accords' || k === 'charters' || k === 'blueprints') setMode(k); };
+      window.addEventListener('hashchange', onHash); teardown.push(function(){ window.removeEventListener('hashchange', onHash); });
+    }
   }
 
   /* ==========================================================
