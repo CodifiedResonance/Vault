@@ -983,3 +983,9 @@ body.paper .doc-adopt .bp-btn{color:#111;background:#fff;border-color:#111;box-s
   #panel-charters .ch-card:hover .ch-plate-code{color:rgba(var(--cyan),.6);text-shadow:0 0 30px rgba(var(--blue-rgb),.45)}
 }
 .bp-msg{padding:0 22px;max-width:46ch;margin-left:auto;margin-right:auto;line-height:1.5}
+/* menu must cover the screen: an ancestor with backdrop-filter would trap a fixed overlay inside it */
+@media(max-width:820px){
+  body.menu-open .topbar{-webkit-backdrop-filter:none;backdrop-filter:none;background:transparent;z-index:60}
+  body.menu-open .toplinks{z-index:59;height:100vh;height:100dvh}
+  body.menu-open .menu-btn{z-index:61}
+}
