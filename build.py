@@ -165,7 +165,7 @@ def UD(d):
 
 # ---------------------------------------------------------------- pieces
 def topbar(current=""):
-    links = [("accords", "Accords"), ("charters", "Charters"), ("blueprints", "Blueprints"), ("identity", "The Questions"), ("signal", "Send Signal")]
+    links = [("accords", "Accords"), ("charters", "Charters"), ("blueprints", "Blueprints"), ("signal", "Send Signal")]
     return '''<header class="topbar">
   <a class="mark" href="%s" aria-label="The Vault — home"><i class="mark-glyph" aria-hidden="true">⚶</i><span>The Vault</span></a>
   <button type="button" class="menu-btn" aria-expanded="false" aria-controls="chambers"><span class="menu-word">Menu</span><i aria-hidden="true"></i></button>
