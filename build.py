@@ -328,7 +328,8 @@ def sec_html(secs):
     return "\n".join('<section class="sec" id="%s"><h2 class="sec-label">%s</h2>\n%s\n</section>' % (i, E(l), h) for l, i, h in secs)
 
 def is_sealed(d):
-    return d.get("field") == "seal"
+    """every Accord carries its seal field; 'field: rings' keeps the old orrery"""
+    return d.get("field", "seal") == "seal"
 
 def field_attrs(d):
     if not is_sealed(d): return ""

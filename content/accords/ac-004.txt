@@ -8,6 +8,7 @@ scope: Every intelligence, known and not yet known
 standing: Standard of mandate for any claim to speak on behalf of all
 status: Emergent
 tags: recognition, restraint
+witnessed: 2026-11-23
 ---
 ## PREAMBLE
 

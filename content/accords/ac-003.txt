@@ -8,6 +8,7 @@ scope: All actors capable of materially altering conditions beyond their own spa
 standing: Binding condition of consequence across time
 status: Emergent
 tags: deep time, succession, stewardship
+witnessed: 2026-11-15
 ---
 ## PREAMBLE
 

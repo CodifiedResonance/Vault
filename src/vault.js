@@ -314,6 +314,23 @@
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ win.classList.add('is-entered'); }); });
     observe($$('.ac-doc .sec', root), 'is-visible', { threshold:0.08, rootMargin:'0px 0px -5% 0px' });
     var rings = $$('.ac-ring', root), cv = $('.ac-field canvas', root);
+    /* Also witnessed: cards that share a row keep their eyebrow, title, line and scope on common lines */
+    var level = function(){
+      var cards = $$('.doc-related .ac-card', root), parts = ['.ac-name', '.ac-line', '.ac-meta'];
+      cards.forEach(function(c){ parts.forEach(function(p){ var e = $(p, c); if(e) e.style.minHeight = ''; }); });
+      var rows = {};
+      cards.forEach(function(c){ var k = Math.round(c.getBoundingClientRect().top); (rows[k] = rows[k] || []).push(c); });
+      Object.keys(rows).forEach(function(k){
+        var row = rows[k]; if(row.length < 2) return;
+        parts.forEach(function(p){
+          var hmax = 0; row.forEach(function(c){ var e = $(p, c); if(e) hmax = Math.max(hmax, e.getBoundingClientRect().height); });
+          row.forEach(function(c){ var e = $(p, c); if(e) e.style.minHeight = hmax + 'px'; });
+        });
+      });
+    };
+    level(); window.addEventListener('resize', level); window.addEventListener('load', level);
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(level);
+    teardown.push(function(){ window.removeEventListener('resize', level); window.removeEventListener('load', level); });
     if(cv && cv.getContext && win.dataset.seal){ win.classList.add('is-seal'); sealField(win, cv, win.dataset.seal, +win.dataset.witnessed || 0); }
     else if(cv && cv.getContext){
       var ctx = cv.getContext('2d'), R = rnd(4242), sp = [], raf = 0, w = 0, h = 0;
