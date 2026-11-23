@@ -994,3 +994,5 @@ body.paper .doc-adopt .bp-btn{color:#111;background:#fff;border-color:#111;box-s
 .doc-rule em{font-style:normal}
 .doc-rule span{color:var(--bg)}
 .doc-rule span::selection{color:var(--bg)}
+.doc-rule{position:relative}
+.doc-rule span{position:absolute;right:100%;white-space:nowrap}
