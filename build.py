@@ -339,7 +339,7 @@ def page_accord(d):
   <div class="doc-secondary ac-witness">%s</div>
   <div class="doc-secondary">%s</div>
   <div class="doc-footstrip">%s</div>
-  <p class="doc-rule"><span>Chamber rule</span>%s</p>
+  <p class="doc-rule"><span>Chamber rule</span><em>%s</em></p>
   <section class="doc-related"><h2>Also witnessed in this chamber</h2><div class="v-grid">%s</div></section>
   <p class="doc-write"><a href="%s" data-write="response" data-doc="%s">Send a signal about this Accord →</a></p>
   <a class="doc-back" href="%s">← Back to the Accords</a>

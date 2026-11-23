@@ -991,3 +991,5 @@ body.paper .doc-adopt .bp-btn{color:#111;background:#fff;border-color:#111;box-s
 }
 .doc-rule{max-width:920px;margin:14px auto 0;font-size:12px;letter-spacing:.06em;color:var(--ink-dim);text-align:center}
 .doc-rule span{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin-right:12px}
+.doc-rule em{font-style:normal;color:var(--bg)}
+.doc-rule em::selection{color:var(--bg)}
