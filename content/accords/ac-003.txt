@@ -7,7 +7,7 @@ domain: Deep Time
 scope: All actors capable of materially altering conditions beyond their own span
 standing: Binding condition of consequence across time
 status: Emergent
-tags: deep time, custodianship, stewardship, succession, cosmic
+tags: deep time, succession, stewardship
 ---
 ## PREAMBLE
 

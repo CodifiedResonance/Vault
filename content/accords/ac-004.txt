@@ -7,7 +7,7 @@ domain: Cosmic
 scope: Every intelligence, known and not yet known
 standing: Standard of mandate for any claim to speak on behalf of all
 status: Emergent
-tags: cosmic, representation, mandate, restraint, deep time
+tags: recognition, restraint
 ---
 ## PREAMBLE
 

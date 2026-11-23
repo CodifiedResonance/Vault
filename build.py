@@ -94,6 +94,9 @@ def prose(body):
         out.append(blocks(chunk).replace(' class="dot"', ""))
     return "\n".join(o for o in out if o)
 
+# The locked Accord filter set (Nov 2026). A chip shows only once an Accord carries it.
+ACCORD_CHIPS = ["cosmic", "planetary", "deep time", "succession", "recognition", "restraint", "stewardship"]
+ACCORD_RULE = "Accords may be strengthened, never weakened."
 ACCORDS = [load(p) for p in sorted((C / "accords").glob("*.txt"))]
 CHARTERS = [load(p) for p in sorted((C / "charters").glob("*.txt"))]
 BLUEPRINTS = [load(p) for p in sorted((C / "blueprints").glob("*.txt"))]
@@ -302,7 +305,7 @@ def page_home():
 </div>
 </main>
 %s''' % (topbar(), U("identity"),
-         chips(ACCORDS, ["cosmic", "planetary", "non-interference", "stewardship", "celestial rights", "deep time", "custodianship", "succession"]),
+         chips(ACCORDS, ACCORD_CHIPS),
          chips(CHARTERS, ["local", "civic", "robotics", "algorithms", "relational ai", "protection", "stewardship"]),
          "\n".join(accord_card(d) for d in ACCORDS), "\n".join(charter_card(d) for d in reversed(CHARTERS)),
          "\n".join(blueprint_card(d) for d in BLUEPRINTS), "<i></i>" * len(BLUEPRINTS), U("identity"), footer())
@@ -336,6 +339,7 @@ def page_accord(d):
   <div class="doc-secondary ac-witness">%s</div>
   <div class="doc-secondary">%s</div>
   <div class="doc-footstrip">%s</div>
+  <p class="doc-rule"><span>Chamber rule</span>%s</p>
   <section class="doc-related"><h2>Also witnessed in this chamber</h2><div class="v-grid">%s</div></section>
   <p class="doc-write"><a href="%s" data-write="response" data-doc="%s">Send a signal about this Accord →</a></p>
   <a class="doc-back" href="%s">← Back to the Accords</a>
@@ -343,7 +347,7 @@ def page_accord(d):
 </main>
 %s''' % (topbar("accords"), img(d["id"]), E(d["status"]), E(d["title"]), E(d["line"]),
          strip([("Form", d["form"]), ("Domain", d["domain"]), ("Scope", d["scope"]), ("Standing", d["standing"])]),
-         sec_html(main), sec_html(witness), sec_html(rest), strip([("Status", d["status"]), ("Edition", d["id"])]),
+         sec_html(main), sec_html(witness), sec_html(rest), strip([("Status", d["status"]), ("Edition", d["id"])]), E(ACCORD_RULE),
          "\n".join(accord_card(a) for a in related), U("signal"), A(d["id"] + " — " + d["title"]), U("accords"), footer())
 
 def page_charter(d):
@@ -617,7 +621,7 @@ def build_dist():
     write(D / "_headers", "/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n")
     write(D / "robots.txt", "User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n" % BASE)
     write(D / "sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % "\n".join("  <url><loc>%s%s</loc></url>" % (BASE, u) for u in urls))
-    idx = ["# The Vault — Codified Resonance", "", "> Foundational documents for the transition to a world shared with artificial intelligence. Accords witness agreements at civilisational to cosmic scale. Charters are model instruments for local adoption. Canonical text lives at the URLs below.", "", "## Accords"]
+    idx = ["# The Vault — Codified Resonance", "", "> Foundational documents for the transition to a world shared with artificial intelligence. Accords witness agreements at civilisational to cosmic scale. Charters are model instruments for local adoption. Canonical text lives at the URLs below.", "", "## Accords", "", "Chamber rule: %s Any later version may clarify, close a loophole or widen protection; none may narrow, carve out exceptions or lower a standard." % ACCORD_RULE, ""]
     idx += ["- [%s — %s](%s/accords/%s/): %s (%s; %s)" % (d["id"], d["title"], BASE, d["slug"], d["line"], d["form"], d["status"]) for d in ACCORDS]
     idx += ["", "## Charters"] + ["- [%s — %s](%s/charters/%s/): %s (%s)" % (d["id"], d["title"], BASE, d["slug"], d["line"], d["status"]) for d in CHARTERS]
     idx += ["", "## Blueprints"] + ["- [%s — %s](%s/blueprints/%s/): %s (%s)" % (d["id"], d["title"], BASE, d["slug"], d["line"], STATE[d["access"]]) for d in BLUEPRINTS]

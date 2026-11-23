@@ -7,7 +7,7 @@ domain: Cosmic
 scope: All celestial bodies within and beyond the solar system
 standing: Recognition of inherent non-human cosmic standing
 status: Emergent
-tags: cosmic, celestial rights, deep time, stewardship
+tags: cosmic, recognition
 ---
 ## NON-HIERARCHY CLAUSE
 

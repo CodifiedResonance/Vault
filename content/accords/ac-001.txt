@@ -7,7 +7,7 @@ domain: Cosmic
 scope: Solar System and beyond
 standing: Precedent-setting civilisational restraint
 status: Emergent
-tags: cosmic, non-interference, deep time, stewardship
+tags: cosmic, deep time, restraint
 ---
 ## PREAMBLE
 
