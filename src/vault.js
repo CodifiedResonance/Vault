@@ -314,7 +314,8 @@
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ win.classList.add('is-entered'); }); });
     observe($$('.ac-doc .sec', root), 'is-visible', { threshold:0.08, rootMargin:'0px 0px -5% 0px' });
     var rings = $$('.ac-ring', root), cv = $('.ac-field canvas', root);
-    if(cv && cv.getContext){
+    if(cv && cv.getContext && win.dataset.seal){ win.classList.add('is-seal'); sealField(win, cv, win.dataset.seal, +win.dataset.witnessed || 0); }
+    else if(cv && cv.getContext){
       var ctx = cv.getContext('2d'), R = rnd(4242), sp = [], raf = 0, w = 0, h = 0;
       for(var i = 0; i < 70; i++) sp.push([R(), R(), 0.3 + R() * 1.1, 0.2 + R() * 0.8]);
       var size = function(){ var b = cv.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2); w = b.width; h = b.height; cv.width = w * d; cv.height = h * d; ctx.setTransform(d,0,0,d,0,0); };
@@ -334,6 +335,79 @@
       size(); window.addEventListener('resize', size); raf = requestAnimationFrame(draw);
       teardown.push(function(){ cancelAnimationFrame(raf); window.removeEventListener('resize', size); });
     }
+  }
+
+  /* ==========================================================
+     ACCORD SEAL FIELD
+     The geometry is read from the Accord's own seal (sha-256 of its text):
+     no two Accords share a field, and a changed word changes the field.
+     It runs on real elapsed time since the Accord was witnessed, so every
+     reader, anywhere, sees the same field at the same moment.
+     One slow band of light crosses it; the arcs show only where it falls.
+     ========================================================== */
+  function sealField(win, cv, hex, t0){
+    var ctx = cv.getContext('2d'), w = 0, h = 0, raf = 0, last = 0;
+    var B = function(i){ return parseInt(hex.substr((i * 2) % 64, 2), 16) / 255; };
+    var R = rnd((parseInt(hex.slice(0, 8), 16) % 2147483646) + 1);
+    var TAU = Math.PI * 2, n = 3 + Math.floor(B(0) * 2.99), arcs = [], stars = [];
+    var periods = [520, 740, 980, 1260, 1580];                     /* seconds per turn, inner to outer */
+    for(var i = 0; i < n; i++){
+      var k = 3 + i * 6, breaks = [], nb = Math.floor(B(k + 3) * 2.99);
+      for(var q = 0; q < nb; q++) breaks.push([0.15 + R() * 0.7, (3 + R() * 6) / 360 * TAU]);
+      var lights = [], nl = 1 + Math.floor(B(k + 4) * 1.99);
+      for(var m = 0; m < nl; m++) lights.push([0.08 + R() * 0.84, 0.9 + R() * 0.8]);
+      arcs.push({
+        r: 0.26 + (i + 0.35 * B(k)) * (0.7 / n),                  /* fraction of the field's reach */
+        a0: B(k + 1) * TAU,
+        span: (0.56 + 0.34 * B(k + 2)) * TAU,                      /* never a closed circle */
+        dir: B(k + 5) > 0.5 ? 1 : -1,
+        period: periods[i] * (0.9 + 0.2 * R()),
+        breaks: breaks, lights: lights, dash: i === 0 && B(40) > 0.5
+      });
+    }
+    for(var s2 = 0; s2 < 44; s2++) stars.push([R(), R(), 0.3 + R() * 0.8, R() * TAU, 0.05 + R() * 0.12]);
+    var lightPhase = B(50) * TAU, lightPeriod = 5400;              /* the band of light: one crossing every 90 minutes */
+    var size = function(){ var b = cv.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2); w = b.width; h = b.height; cv.width = w * d; cv.height = h * d; ctx.setTransform(d,0,0,d,0,0); draw(); };
+    var draw = function(){
+      var el = Math.max(0, (Date.now() - t0) / 1000);
+      var cx = w * 0.5, cy = h * 0.44, reach = Math.max(w, h) * 0.62;
+      var phi = lightPhase + TAU * (el % lightPeriod) / lightPeriod;
+      ctx.clearRect(0, 0, w, h);
+      /* the lit side: a breath of light, nothing more */
+      var lx = cx + Math.cos(phi) * reach * 0.8, ly = cy + Math.sin(phi) * reach * 0.8;
+      var g = ctx.createRadialGradient(lx, ly, 0, lx, ly, reach * 1.1);
+      g.addColorStop(0, 'rgba(196,212,228,0.045)'); g.addColorStop(1, 'rgba(196,212,228,0)');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+      for(var j = 0; j < stars.length; j++){
+        var st = stars[j], tw = 0.6 + 0.4 * Math.sin(el / 40 + st[3]);
+        ctx.fillStyle = 'rgba(206,220,232,' + (st[4] * tw).toFixed(3) + ')';
+        ctx.beginPath(); ctx.arc(st[0] * w, st[1] * h, st[2], 0, TAU); ctx.fill();
+      }
+      ctx.lineWidth = 1; ctx.lineCap = 'round';
+      for(var a = 0; a < arcs.length; a++){
+        var A = arcs[a], r = A.r * reach, rot = A.a0 + A.dir * TAU * (el % A.period) / A.period;
+        var step = TAU / 220, segs = Math.ceil(A.span / step);
+        ctx.setLineDash(A.dash ? [2, 5] : []);
+        for(var p = 0; p < segs; p++){
+          var f = p / segs, gap = false;
+          for(var z = 0; z < A.breaks.length; z++){ if(Math.abs(f - A.breaks[z][0]) * A.span < A.breaks[z][1] / 2) { gap = true; break; } }
+          if(gap) continue;
+          var ang = rot + f * A.span, L = Math.max(0, Math.cos(ang - phi)); L = L * L * L;
+          ctx.strokeStyle = 'rgba(206,220,232,' + (0.035 + 0.4 * L).toFixed(3) + ')';
+          ctx.beginPath(); ctx.arc(cx, cy, r, ang, Math.min(ang + step * 1.04, rot + A.span)); ctx.stroke();
+        }
+        for(var l = 0; l < A.lights.length; l++){
+          var la = rot + A.lights[l][0] * A.span, Ll = Math.max(0, Math.cos(la - phi)), px = cx + Math.cos(la) * r, py = cy + Math.sin(la) * r;
+          ctx.fillStyle = 'rgba(220,232,242,' + (0.1 + 0.55 * Ll * Ll).toFixed(3) + ')';
+          ctx.beginPath(); ctx.arc(px, py, A.lights[l][1], 0, TAU); ctx.fill();
+        }
+      }
+      ctx.setLineDash([]);
+    };
+    var loop = function(now){ if(now - last > 66){ last = now; draw(); } raf = requestAnimationFrame(loop); };
+    size(); window.addEventListener('resize', size);
+    if(!reduce) raf = requestAnimationFrame(loop);
+    teardown.push(function(){ cancelAnimationFrame(raf); window.removeEventListener('resize', size); });
   }
 
   /* ==========================================================

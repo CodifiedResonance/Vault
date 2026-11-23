@@ -254,6 +254,7 @@ button{font:inherit;color:inherit}
 .doc-strip dt{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 6px}
 .doc-strip dd{margin:0;font-size:13.5px;line-height:1.4}
 .strip-4{grid-template-columns:repeat(4,1fr)}.strip-5{grid-template-columns:repeat(5,1fr)}.strip-2{grid-template-columns:repeat(2,1fr);max-width:520px}
+.strip-3{grid-template-columns:1fr 1fr 1.4fr;max-width:720px}
 @media(max-width:860px){.strip-4,.strip-5{grid-template-columns:1fr 1fr}.doc-strip>div{border-left:none;border-top:1px solid var(--line-soft)}.doc-strip>div:nth-child(-n+2){border-top:none}.doc-strip>div:nth-child(even){border-left:1px solid var(--line-soft)}}
 
 .sec{padding:30px clamp(18px,3.4vw,34px) 26px;border-top:1px solid var(--line-soft);position:relative}
@@ -1006,3 +1007,8 @@ body.paper .doc-adopt .bp-btn{color:#111;background:#fff;border-color:#111;box-s
 .doc-rule span::selection{color:transparent}
 .doc-rule{margin-top:44px}
 .doc-rule + .doc-related{margin-top:24px}
+/* Accord seal field: the rings and glow give way to the Accord's own seal */
+.ac-window.is-seal .ac-ring,.ac-window.is-seal .ac-field-glow{display:none}
+.ac-window.is-seal .ac-field canvas{opacity:1}
+.doc-strip dd .seal,.strip-3>div:last-child dd{font-variant-numeric:tabular-nums;letter-spacing:.08em}
+@media(max-width:640px){.strip-3{grid-template-columns:1fr 1fr;max-width:none}.strip-3>div:last-child{grid-column:1/-1;border-left:none;border-top:1px solid var(--line-soft)}}

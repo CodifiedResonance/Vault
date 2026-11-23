@@ -16,7 +16,7 @@ own key. The plain text never reaches dist/. Sealing needs `pip install cryptogr
 
     python3 build.py issue build-the-ark     # mint a new key, reseal, print it
 """
-import base64, html, json, os, random, re, shutil, sys
+import base64, datetime, hashlib, html, json, os, random, re, shutil, sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -37,6 +37,17 @@ def load(path):
     meta["tags"] = [t.strip() for t in meta.get("tags", "").split(",") if t.strip()]
     meta["body"] = body.strip()
     return meta
+
+def text_seal(d):
+    """the Accord's seal: sha-256 of its canonical text (the body only, so retagging never changes it)"""
+    canon = "\n".join(l.rstrip() for l in d["body"].replace("\r\n", "\n").split("\n")).strip()
+    return hashlib.sha256(canon.encode("utf-8")).hexdigest()
+
+def witnessed_ms(d):
+    w = d.get("witnessed", "")
+    if not w: return 0
+    t = datetime.datetime.strptime(w, "%Y-%m-%d").replace(tzinfo=datetime.timezone.utc)
+    return int(t.timestamp() * 1000)
 
 CLAUSE = re.compile(r"^((?:\d+|[IVX]+)\.)\s*(.*?)\s*::\s*(.*)$")
 
@@ -316,6 +327,19 @@ def strip(items, n=None):
 def sec_html(secs):
     return "\n".join('<section class="sec" id="%s"><h2 class="sec-label">%s</h2>\n%s\n</section>' % (i, E(l), h) for l, i, h in secs)
 
+def is_sealed(d):
+    return d.get("field") == "seal"
+
+def field_attrs(d):
+    if not is_sealed(d): return ""
+    return ' data-seal="%s" data-witnessed="%d"' % (text_seal(d), witnessed_ms(d))
+
+def foot_strip(d):
+    items = [("Status", d["status"]), ("Edition", d["id"])]
+    if is_sealed(d):
+        h = text_seal(d); items.append(("Seal", " ".join(h[i:i + 4] for i in range(0, 12, 4))))
+    return strip(items)
+
 def page_accord(d):
     main, second = sections(d["body"])
     witness = [s for s in second if "WITNESS" in s[0]]; rest = [s for s in second if "WITNESS" not in s[0]]
@@ -330,7 +354,7 @@ def page_accord(d):
     <p class="doc-line">%s</p>
   </header>
   %s
-  <div class="ac-window">
+  <div class="ac-window"%s>
     <div class="ac-field" aria-hidden="true"><div class="ac-field-stick"><div class="ac-field-glow"></div><canvas></canvas><i class="ac-ring r1"></i><i class="ac-ring r2"></i><i class="ac-ring r3"></i></div></div>
     <div class="ac-doc">
 %s
@@ -347,7 +371,7 @@ def page_accord(d):
 </main>
 %s''' % (topbar("accords"), img(d["id"]), E(d["status"]), E(d["title"]), E(d["line"]),
          strip([("Form", d["form"]), ("Domain", d["domain"]), ("Scope", d["scope"]), ("Standing", d["standing"])]),
-         sec_html(main), sec_html(witness), sec_html(rest), strip([("Status", d["status"]), ("Edition", d["id"])]), E(ACCORD_RULE),
+         field_attrs(d), sec_html(main), sec_html(witness), sec_html(rest), foot_strip(d), E(ACCORD_RULE),
          "\n".join(accord_card(a) for a in related), U("signal"), A(d["id"] + " — " + d["title"]), U("accords"), footer())
 
 def page_charter(d):
