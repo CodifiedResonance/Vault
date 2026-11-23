@@ -13,7 +13,9 @@ tags: local, civic, algorithms, decision systems, protection, stewardship
 
 Algorithmic systems are already present within civic life, whether seen or unseen. They rank, filter, score, classify, recommend, predict, and shape decisions across housing, education, health, benefits, safeguarding, transport, employment, policing, and public administration. Their presence is often obscured by software language, procurement layers, institutional routine, or the false assumption that technical mediation is neutral by default.
 
-Where a system can meaningfully alter a person’s access, treatment, scrutiny, movement, opportunity, or standing, it is already exercising civic force. That force may not operate without declaration, accountability, review, and refusal. Civic life may not be silently reorganised by systems the public cannot see, question, or meaningfully challenge.
+Where a system can meaningfully alter a person’s access, treatment, scrutiny, movement, opportunity, or standing, it is already exercising civic force. That force may not operate without declaration, accountability, review, and refusal. Civic life may not be silently reorganised by systems the public cannot see, question, or meaningfully challenge. Nor is a person protected merely because a human being has been placed beside the system. A reviewer who cannot depart from its output is not a safeguard.
+
+!! Formal presence is not review.
 
 This Charter establishes the principle that local communities, authorities, and institutions retain the right and responsibility to set conditions on algorithmic presence within civic life. It exists to protect dignity, fairness, legibility, due process, and human accountability at the point where computational judgment begins to shape lived reality.
 
@@ -90,7 +92,7 @@ No algorithmic system may be deployed within the jurisdiction unless all of the 
 
 9. Data limitation :: Data used or generated through deployment must not be used beyond the declared civic purpose, operational audit, incident reconstruction, and lawful review unless separately and explicitly approved. Secondary commercial, profiling, training, or analytics use requires distinct approval.
 
-10. Challenge and redress :: A simple and accessible route must exist for people to challenge materially consequential outputs, request review, and seek correction where harm, error, or unfair treatment may have occurred.
+10. Challenge and redress :: A simple and accessible route must exist for people to challenge materially consequential outputs, request review, and seek correction where harm, error, or unfair treatment may have occurred. Challenge may be brought by the affected person or by a representative, advocate, or guardian acting on their behalf. Where a pattern of harm affects many people who cannot see it individually, challenge may be brought collectively, and a pattern established across cases is sufficient grounds for review without proof in each one.
 
 11. Proportionality :: The system must not impose a level of surveillance, opacity, categorisation, or procedural burden disproportionate to the civic purpose claimed. Greater civic consequence requires greater clarity, tighter boundaries, and stronger review.
 
@@ -150,6 +152,8 @@ A deployment must be refused, suspended, or withdrawn where any of the following
 - the system’s actual behaviour exceeds its declared decision boundary
 - threshold changes, retraining history, or material update history cannot be adequately reconstructed
 - the deployer declines local registration, audit, or disclosure on the grounds that the system is procured or administered outside the jurisdiction
+- the declared review date has passed without renewed approval
+- the review and approval function is not independent of the deploying body where the local authority is itself the deployer
 - local authority no longer has confidence in the system’s proportionality, fairness, or governability
 
 Refusal under this Charter does not require catastrophe. Repeated opacity, unexplained classifications, harmful error, undeclared escalation, rubber-stamp review, or procedural unfairness are sufficient grounds.
@@ -174,7 +178,7 @@ A system does not escape local accountability because its decisions are made els
 
 5. Incident reporting :: Material errors, harmful false positives or negatives, discriminatory findings, unexplained escalations, undeclared adaptations, and challenge failures must be reported promptly. Serious incidents should trigger automatic review.
 
-6. Human review integrity :: Where human review is required, the review process must itself be auditable. A human being placed in the loop without authority, time, institutional permission, relevant understanding, or practical capacity to depart from the system’s output does not satisfy this Charter. Formal presence is not the same as meaningful review.
+6. Human review integrity :: Where human review is required, the review process must itself be auditable. A human being placed in the loop without authority, time, institutional permission, relevant understanding, or practical capacity to depart from the system’s output does not satisfy this Charter. Formal presence is not review.
 
 7. Non-waivable suspension power :: No software agreement, procurement contract, vendor term, service dependency, or commercial arrangement may limit, delay, dilute, or supersede the local authority’s power to suspend, withdraw, or refuse approval. Contractual continuity does not override civic safety or procedural fairness.
 
@@ -207,6 +211,8 @@ Presence must be earned through clarity, accountability, proportionality, review
 Where conditions are not met, deployment does not proceed.
 Where accountability fails, deployment is paused.
 Where a person’s civic reality is being shaped by a system they cannot see, question, or meaningfully challenge, deployment is refused.
+
+!! Formal presence is not review.
 
 The burden is not on the public to adapt endlessly to hidden computational authority. The burden is on the deployer to demonstrate that such authority is necessary, legible, contestable, governable, and bounded within what has actually been declared.
 

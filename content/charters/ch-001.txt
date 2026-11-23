@@ -15,6 +15,8 @@ Robotic systems are moving from controlled industrial zones into environments sh
 
 Where a machine can move, perceive, decide, persist, or exert force within human environments, conditions must be set before deployment, not after harm. Public space is not a testing ground by default. Civilian life is not a passive substrate for ungoverned experimentation. No robotic presence should be presumed acceptable merely because it is possible, novel, efficient, or commercially available.
 
+!! Public space is not a testing ground.
+
 This Charter establishes the principle that local communities have both the right and the responsibility to determine the conditions under which robotic systems may enter shared space. It exists to protect dignity, safety, clarity, accountability, and proportion at the point where people actually live.
 
 ## PURPOSE
@@ -30,21 +32,6 @@ It is designed to:
 - create a practical standard for approval, suspension, review, and refusal
 - preserve the principle that human environments are governed by stewardship, not technical inevitability
 
-## REVIEW AND REVISION
-
-This Charter is intended as a living civic instrument, not a frozen document.
-
-It should be reviewed:
-
-- at regular local intervals
-- following any significant incident
-- upon major technical changes to system behaviour, intelligence boundary, or operating scope
-- when robotic systems begin entering new categories of public environment
-- where public concern materially shifts
-- where local evidence shows that existing conditions are insufficient
-
-No deployment should be grandfathered into permanence merely because it arrived early. Continued operation remains conditional.
-
 ## DEFINITIONS
 
 > Robot / Robotic System :: Any machine or embodied system capable of moving through physical space, sensing its environment, taking action, interacting with people, handling objects, or exerting force, whether autonomously, semi-autonomously, remotely operated, or in hybrid form.
@@ -56,6 +43,7 @@ No deployment should be grandfathered into permanence merely because it arrived 
 > Emergency Stop :: A reliable, immediate, accessible mechanism by which the system can be paused, disabled, or safely immobilised.
 > Incident :: Any malfunction, collision, obstruction, unsafe behaviour, loss of control, harmful interference, failure of override, near miss, unauthorised entry, or public safety event involving the system.
 > Refusal :: A local determination that a proposed or active robotic deployment does not meet the conditions of this Charter and may not proceed.
+> Experimental Deployment :: Any deployment of a system, capability, operating zone, or use that has not demonstrated safe behaviour under the conditions in which it is now being placed, including pilots, trials, and proofs of concept conducted in shared civilian environments.
 > Declared Intelligence Boundary :: The full scope of the system’s decision-making, sensing, inference, learning, and adaptive capabilities as declared to the local authority. Any capability not declared within this boundary shall be treated as undeclared escalation under this Charter.
 
 ## CONDITIONS OF DEPLOYMENT AND USE
@@ -73,6 +61,7 @@ No robotic system may be deployed within the jurisdiction unless all of the foll
 9. Data limitation :: Data collected during operation, including environmental sensing, route logs, and incident records, must not be used for purposes beyond operational safety, incident reconstruction, and local audit unless separately and explicitly approved. Secondary commercial, analytical, or training use of locally collected operational data requires distinct approval.
 10. Public clarity :: Where the public may reasonably encounter the system, its presence must not be deceptive. People should not be expected to infer whether a machine is autonomous, remotely operated, supervised, adaptive, or experimental.
 11. Accessibility and proportionality :: The deployment must not unreasonably burden disabled people, obstruct access routes, degrade navigability, or create a civic environment in which ordinary movement becomes subordinate to machine logistics.
+12. Declared review date and re-approval interval :: Every deployment must carry a declared review date, after which continued operation requires renewed approval. Continued presence in shared civilian space may not be presumed indefinite.
 
 ## PROTECTIVE CONSTRAINTS
 
@@ -102,6 +91,8 @@ A deployment must be refused, suspended, or withdrawn where any of the following
 - the deployment materially degrades accessibility, public calm, or civic movement
 - the deployer seeks to normalise trial conditions under the language of service continuity
 - the system’s intelligence boundary is unclear, materially underdeclared, or found to exceed what was approved
+- the declared review date has passed without renewed approval
+- the review and approval function is not independent of the deploying body where the local authority is itself the deployer
 - local authority no longer has confidence in the system’s proportionality, suitability, or stewarded control
 
 Refusal under this Charter does not require catastrophe. Repeated instability, near misses, public confusion, undeclared escalation, or stewardship failure are sufficient grounds.
@@ -116,6 +107,23 @@ Robotic deployment within local civilian environments must remain under visible,
 4. Public reporting pathway :: A simple public-facing reporting channel must exist for complaints, hazards, confusion, or harm associated with the system.
 5. Audit rights :: Local oversight bodies must retain the right to inspect logs, operating constraints, intervention history, incident history, declared capability boundaries, and declared intelligence boundaries.
 6. Non-waivable suspension power :: No deployment agreement, service contract, procurement arrangement, pilot agreement, or commercial relationship may limit, delay, dilute, or supersede the local authority’s power to suspend, withdraw, or refuse approval. Contractual continuity does not override civic safety.
+7. Withdrawal readiness :: Every deployment must have a documented, tested pathway for suspension and physical removal that can be enacted without unreasonable delay. Operational dependency on a system does not eliminate the obligation to remove it where safety, accountability, or proportionality has broken down.
+8. Independent review where the local authority is deployer :: Where the local authority, council, trust, or public body is also the deployer, the review and approval function must be operationally independent of the deploying department. Self-certification does not satisfy this Charter.
+
+## REVIEW AND REVISION
+
+This Charter is intended as a living civic instrument, not a frozen document.
+
+It should be reviewed:
+
+- at regular local intervals
+- following any significant incident
+- upon major technical changes to system behaviour, intelligence boundary, or operating scope
+- when robotic systems begin entering new categories of public environment
+- where public concern materially shifts
+- where local evidence shows that existing conditions are insufficient
+
+No deployment should be grandfathered into permanence merely because it arrived early. Continued operation remains conditional.
 
 ## CLOSING STANDING
 
@@ -126,5 +134,7 @@ Presence must be earned through clarity, stewardship, suitability, accountabilit
 Where conditions are not met, deployment does not proceed.
 Where stewardship fails, deployment is paused.
 Where public space is asked to absorb risk without consent, deployment is refused.
+
+!! Public space is not a testing ground.
 
 The burden is not on the public to adapt endlessly to robotic presence. The burden is on the deployer to demonstrate that such presence is safe, necessary, proportionate, governable, and bounded within what has actually been declared.
