@@ -996,12 +996,11 @@ body.paper .doc-adopt .bp-btn{color:#111;background:#fff;border-color:#111;box-s
 .doc-rule span::selection{color:var(--bg)}
 .doc-rule{position:relative}
 .doc-rule span{position:absolute;right:100%;white-space:nowrap}
-/* Accord field: slowed right down, and still while a mouse rests on the document */
-.ac-ring.r1{animation-duration:420s}
-.ac-ring.r2{animation-duration:300s}
-.ac-ring.r3{animation-duration:220s}
-.ac-field-glow{animation-duration:110s}
-.ac-window.is-held .ac-ring,.ac-window.is-held .ac-field-glow{animation-play-state:paused}
+/* Accord field: slow enough to be noticed only after time spent with it; never pauses */
+.ac-ring.r1{animation-duration:720s}
+.ac-ring.r2{animation-duration:540s}
+.ac-ring.r3{animation-duration:400s}
+.ac-field-glow{animation-duration:140s}
 /* chamber rule: label carried but unseen; line sits midway between the strip and the related cards */
 .doc-rule span{color:transparent}
 .doc-rule span::selection{color:transparent}
