@@ -314,22 +314,24 @@
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ win.classList.add('is-entered'); }); });
     observe($$('.ac-doc .sec', root), 'is-visible', { threshold:0.08, rootMargin:'0px 0px -5% 0px' });
     var rings = $$('.ac-ring', root), cv = $('.ac-field canvas', root);
-    var onMove = function(e){
-      var b = win.getBoundingClientRect(), nx = (e.clientX - (b.left + b.width/2)) / b.width, ny = (e.clientY - window.innerHeight/2) / window.innerHeight;
-      rings.forEach(function(r, i){ var k = (i + 1) * 16; r.style.setProperty('--px', (nx * k).toFixed(1) + 'px'); r.style.setProperty('--py', (ny * k).toFixed(1) + 'px'); });
-    };
-    window.addEventListener('pointermove', onMove, { passive:true });
-    teardown.push(function(){ window.removeEventListener('pointermove', onMove); });
+    /* the field holds still while a pointer rests on the document */
+    var held = false, setHeld = function(v){ held = v; win.classList.toggle('is-held', v); };
+    var onEnter = function(e){ if(e.pointerType === 'mouse') setHeld(true); }, onLeave = function(){ setHeld(false); };
+    win.addEventListener('pointerenter', onEnter); win.addEventListener('pointerleave', onLeave);
+    teardown.push(function(){ win.removeEventListener('pointerenter', onEnter); win.removeEventListener('pointerleave', onLeave); });
     if(cv && cv.getContext){
       var ctx = cv.getContext('2d'), R = rnd(4242), sp = [], raf = 0, w = 0, h = 0;
       for(var i = 0; i < 70; i++) sp.push([R(), R(), 0.3 + R() * 1.1, 0.2 + R() * 0.8]);
       var size = function(){ var b = cv.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2); w = b.width; h = b.height; cv.width = w * d; cv.height = h * d; ctx.setTransform(d,0,0,d,0,0); };
-      var draw = function(t){
+      var clock = 0, last = 0;
+      var draw = function(now){
+        if(!held && last) clock += Math.min(now - last, 100);
+        last = now; var t = clock;
         ctx.clearRect(0,0,w,h);
         var sc = window.scrollY * 0.06;
         for(var j = 0; j < sp.length; j++){
-          var s = sp[j], x = (s[0] * w + t * 0.004 * s[3]) % w, y = (((s[1] * h - sc * s[3] - t * 0.006 * s[3]) % h) + h) % h;
-          ctx.fillStyle = 'rgba(160,215,255,' + (0.18 + 0.4 * Math.abs(Math.sin(t / 1600 * s[3] + j))).toFixed(3) + ')';
+          var s = sp[j], x = (s[0] * w + t * 0.0012 * s[3]) % w, y = (((s[1] * h - sc * s[3] - t * 0.0018 * s[3]) % h) + h) % h;
+          ctx.fillStyle = 'rgba(160,215,255,' + (0.18 + 0.4 * Math.abs(Math.sin(t / 5200 * s[3] + j))).toFixed(3) + ')';
           ctx.beginPath(); ctx.arc(x, y, s[2], 0, 6.2832); ctx.fill();
         }
         if(!reduce) raf = requestAnimationFrame(draw);
