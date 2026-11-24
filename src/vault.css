@@ -1012,3 +1012,6 @@ body.paper .doc-adopt .bp-btn{color:#111;background:#fff;border-color:#111;box-s
 .ac-window.is-seal .ac-field canvas{opacity:1}
 .doc-strip dd .seal,.strip-3>div:last-child dd{font-variant-numeric:tabular-nums;letter-spacing:.08em}
 @media(max-width:640px){.strip-3{grid-template-columns:1fr 1fr;max-width:none}.strip-3>div:last-child{grid-column:1/-1;border-left:none;border-top:1px solid var(--line-soft)}}
+.doc-footstrip .strip-3>div:nth-child(n+3) dd,.doc-footstrip .strip-4>div:nth-child(n+3) dd{font-variant-numeric:tabular-nums;letter-spacing:.08em}
+.doc-footstrip .strip-4>div:nth-child(4) dd{color:var(--ink-faint)}
+.doc-footstrip .strip-4{max-width:920px}

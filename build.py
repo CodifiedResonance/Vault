@@ -335,10 +335,23 @@ def field_attrs(d):
     if not is_sealed(d): return ""
     return ' data-seal="%s" data-witnessed="%d"' % (text_seal(d), witnessed_ms(d))
 
+def short_seal(h):
+    return " ".join(h[i:i + 4] for i in range(0, 12, 4))
+
+def lineage(d):
+    """earlier seals of this Accord, oldest first: 'lineage: <sha-256> <date>; <sha-256> <date>'"""
+    out = []
+    for part in d.get("lineage", "").split(";"):
+        bits = part.split()
+        if bits: out.append((bits[0], bits[1] if len(bits) > 1 else ""))
+    return out
+
 def foot_strip(d):
     items = [("Status", d["status"]), ("Edition", d["id"])]
     if is_sealed(d):
-        h = text_seal(d); items.append(("Seal", " ".join(h[i:i + 4] for i in range(0, 12, 4))))
+        items.append(("Seal", short_seal(text_seal(d))))
+        prior = lineage(d)
+        if prior: items.append(("Prior seal" if len(prior) == 1 else "Prior seals", " · ".join(short_seal(h) for h, _ in reversed(prior))))
     return strip(items)
 
 def page_accord(d):
@@ -647,7 +660,9 @@ def build_dist():
     write(D / "robots.txt", "User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n" % BASE)
     write(D / "sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % "\n".join("  <url><loc>%s%s</loc></url>" % (BASE, u) for u in urls))
     idx = ["# The Vault — Codified Resonance", "", "> Foundational documents for the transition to a world shared with artificial intelligence. Accords witness agreements at civilisational to cosmic scale. Charters are model instruments for local adoption. Canonical text lives at the URLs below.", "", "## Accords", "", "Chamber rule: %s Any later version may clarify, close a loophole or widen protection; none may narrow, carve out exceptions or lower a standard." % ACCORD_RULE, ""]
-    idx += ["- [%s — %s](%s/accords/%s/): %s (%s; %s)" % (d["id"], d["title"], BASE, d["slug"], d["line"], d["form"], d["status"]) for d in ACCORDS]
+    idx += ["Each Accord carries a seal: the SHA-256 of its canonical text. A revised Accord keeps its earlier seals as lineage.", ""]
+    idx += ["- [%s — %s](%s/accords/%s/): %s (%s; %s; seal %s%s)" % (d["id"], d["title"], BASE, d["slug"], d["line"], d["form"], d["status"], text_seal(d),
+            "".join("; prior seal %s (%s)" % (h, dt) for h, dt in reversed(lineage(d)))) for d in ACCORDS]
     idx += ["", "## Charters"] + ["- [%s — %s](%s/charters/%s/): %s (%s)" % (d["id"], d["title"], BASE, d["slug"], d["line"], d["status"]) for d in CHARTERS]
     idx += ["", "## Blueprints"] + ["- [%s — %s](%s/blueprints/%s/): %s (%s)" % (d["id"], d["title"], BASE, d["slug"], d["line"], STATE[d["access"]]) for d in BLUEPRINTS]
     idx += ["", "## Identity", "- [The Questions](%s/identity/): nine questions for humans; two further sets held and sealed." % BASE, ""]
