@@ -9,7 +9,6 @@ standing: Standard of mandate for any claim to speak on behalf of all
 status: Emergent
 tags: recognition, restraint
 witnessed: 2026-11-23
-lineage: 3c43cd4341e8d0006b4be867ba90f73855eff2e309fd98f76ec196e6653cee48 2026-11-23
 revised: 2026-11-24
 ---
 ## PREAMBLE

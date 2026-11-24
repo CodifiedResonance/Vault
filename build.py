@@ -114,6 +114,23 @@ BLUEPRINTS = [load(p) for p in sorted((C / "blueprints").glob("*.txt"))]
 QUESTIONS = json.loads((C / "questions.json").read_text(encoding="utf-8"))
 for d in ACCORDS: d["kind"], d["rid"] = "accords", d["id"].lower()
 for d in CHARTERS: d["kind"], d["rid"] = "charters", d["id"].lower()
+
+# Lineage: each earlier edition of an Accord is kept, whole, under its own seal
+# at content/accords/lineage/<id>/<sha-256>.txt. The file name must match the seal of its text.
+def seal_date(d):
+    return d.get("revised") or d.get("witnessed", "")
+
+def load_editions(d):
+    out = []
+    for p in (C / "accords" / "lineage" / d["rid"]).glob("*.txt"):
+        e = load(p); h = text_seal(e)
+        if h != p.stem: sys.exit("lineage: %s does not match its own seal (%s)" % (p, h))
+        short = h[:12]
+        e.update(kind="accords", rid="%s-%s" % (d["rid"], short), slug="%s/lineage/%s" % (d["slug"], short), current=d, seal=h)
+        out.append(e)
+    return sorted(out, key=lambda e: (seal_date(e), e["seal"]))
+
+for d in ACCORDS: d["editions"] = load_editions(d)
 for d in BLUEPRINTS: d["kind"], d["rid"] = "blueprints", "bp-" + d["slug"]
 
 # ---------------------------------------------------------------- sealing
@@ -338,31 +355,51 @@ def field_attrs(d):
 def short_seal(h):
     return " ".join(h[i:i + 4] for i in range(0, 12, 4))
 
-def lineage(d):
-    """earlier seals of this Accord, oldest first: 'lineage: <sha-256> <date>; <sha-256> <date>'"""
-    out = []
-    for part in d.get("lineage", "").split(";"):
-        bits = part.split()
-        if bits: out.append((bits[0], bits[1] if len(bits) > 1 else ""))
-    return out
-
 def foot_strip(d):
-    items = [("Status", d["status"]), ("Edition", d["id"])]
+    cur = d.get("current")
+    cells = [("Status", E("Superseded" if cur else d["status"])), ("Edition", E(d["id"]))]
     if is_sealed(d):
-        items.append(("Seal", short_seal(text_seal(d))))
-        prior = lineage(d)
-        if prior: items.append(("Prior seal" if len(prior) == 1 else "Prior seals", " · ".join(short_seal(h) for h, _ in reversed(prior))))
-    return strip(items)
+        cells.append(("Seal", E(short_seal(text_seal(d)))))
+        line = cur or d
+        chain = [line] + list(reversed(line["editions"]))          # newest first
+        older = chain[chain.index(d) + 1:] if d in chain else []
+        if older:
+            more = ' <span class="seal-more">· %d earlier</span>' % (len(older) - 1) if len(older) > 1 else ""
+            cells.append(("Prior seal", '<a class="seal-link" href="%s">%s</a>%s' % (UD(older[0]), E(short_seal(older[0]["seal"])), more)))
+    return '<dl class="doc-strip strip-%d">%s</dl>' % (len(cells), "".join("<div><dt>%s</dt><dd>%s</dd></div>" % (E(k), v) for k, v in cells))
+
+def lineage_record(d):
+    line = d.get("current") or d
+    if not line["editions"]: return ""
+    chain = [line] + list(reversed(line["editions"]))
+    rows = []
+    for e in chain:
+        here = e is d
+        label = "Current" if e is line else "Superseded"
+        seal_txt = E(short_seal(text_seal(e)))
+        mark = '<span class="ln-seal">%s</span>' % seal_txt if here else '<a class="ln-seal" href="%s">%s</a>' % (UD(e), seal_txt)
+        rows.append('<li%s>%s<span class="ln-date">%s</span><span class="ln-state">%s%s</span></li>' % (' class="is-here"' if here else "", mark, E(fmt_date(seal_date(e))), label, " · you are here" if here else ""))
+    return '<section class="doc-lineage" id="lineage"><h2>Lineage record</h2><ol>%s</ol></section>' % "".join(rows)
+
+def fmt_date(iso):
+    if not iso: return ""
+    dt = datetime.datetime.strptime(iso, "%Y-%m-%d")
+    return "%d %s %d" % (dt.day, dt.strftime("%B"), dt.year)
+
+def superseded_banner(d):
+    cur = d.get("current")
+    if not cur: return ""
+    return '\n    <p class="doc-superseded"><span>Superseded edition · sealed %s</span><a href="%s">Read the current edition →</a></p>' % (E(fmt_date(seal_date(d))), UD(cur))
 
 def page_accord(d):
     main, second = sections(d["body"])
     witness = [s for s in second if "WITNESS" in s[0]]; rest = [s for s in second if "WITNESS" not in s[0]]
-    related = [a for a in ACCORDS if a is not d]
+    related = [a for a in ACCORDS if a is not d and a is not d.get("current")]
     return '''%s
 <main data-page="accord">
 <div class="ac-hero" aria-hidden="true">%s</div>
 <article class="doc ac-page">
-  <header class="doc-open">
+  <header class="doc-open">%s
     <p class="doc-kick"><span>Accord</span><span class="doc-status">%s</span></p>
     <h1 class="doc-title">%s</h1>
     <p class="doc-line">%s</p>
@@ -378,15 +415,16 @@ def page_accord(d):
   <div class="doc-secondary">%s</div>
   <div class="doc-footstrip">%s</div>
   <p class="doc-rule"><span>Chamber rule</span><em>%s</em></p>
-  <section class="doc-related"><h2>Also witnessed in this chamber</h2><div class="v-grid">%s</div></section>
+  %s
+  %s
   <p class="doc-write"><a href="%s" data-write="response" data-doc="%s">Send a signal about this Accord →</a></p>
   <a class="doc-back" href="%s">← Back to the Accords</a>
 </article>
 </main>
-%s''' % (topbar("accords"), img(d["id"]), E(d["status"]), E(d["title"]), E(d["line"]),
+%s''' % (topbar("accords"), img(d["id"]), superseded_banner(d), E("Superseded" if d.get("current") else d["status"]), E(d["title"]), E(d["line"]),
          strip([("Form", d["form"]), ("Domain", d["domain"]), ("Scope", d["scope"]), ("Standing", d["standing"])]),
-         field_attrs(d), sec_html(main), sec_html(witness), sec_html(rest), foot_strip(d), E(ACCORD_RULE),
-         "\n".join(accord_card(a) for a in related), U("signal"), A(d["id"] + " — " + d["title"]), U("accords"), footer())
+         field_attrs(d), sec_html(main), sec_html(witness), sec_html(rest), foot_strip(d), E(ACCORD_RULE), lineage_record(d),
+         "" if d.get("current") else '<section class="doc-related"><h2>Also witnessed in this chamber</h2><div class="v-grid">%s</div></section>' % "\n".join(accord_card(a) for a in related), U("signal"), A(d["id"] + " — " + d["title"]), U("accords"), footer())
 
 def page_charter(d):
     main, second = sections(d["body"])
@@ -635,6 +673,8 @@ def build_dist():
         p = "/accords/%s/" % d["slug"]; urls.append(p)
         OG_TITLE[p] = d["title"]
         write(D / p.strip("/") / "index.html", shell("%s | Accords | The Vault" % d["title"], "%s %s, %s. %s." % (d["line"], d["id"], d["form"], d["standing"]), p, page_accord(d), ld=ld_doc(d, "Accord"), image=d["rid"]))
+        for e in d["editions"]:                                    # kept, readable, never canonical
+            write(D / ("accords/" + e["slug"]) / "index.html", shell("%s (superseded edition) | Accords | The Vault" % e["title"], "Superseded edition of %s, sealed %s." % (d["id"], fmt_date(seal_date(e))), p, page_accord(e), image=d["rid"]))
     for d in CHARTERS:
         p = "/charters/%s/" % d["slug"]; urls.append(p)
         OG_TITLE[p] = d["title"]
@@ -662,7 +702,7 @@ def build_dist():
     idx = ["# The Vault — Codified Resonance", "", "> Foundational documents for the transition to a world shared with artificial intelligence. Accords witness agreements at civilisational to cosmic scale. Charters are model instruments for local adoption. Canonical text lives at the URLs below.", "", "## Accords", "", "Chamber rule: %s Any later version may clarify, close a loophole or widen protection; none may narrow, carve out exceptions or lower a standard." % ACCORD_RULE, ""]
     idx += ["Each Accord carries a seal: the SHA-256 of its canonical text. A revised Accord keeps its earlier seals as lineage.", ""]
     idx += ["- [%s — %s](%s/accords/%s/): %s (%s; %s; seal %s%s)" % (d["id"], d["title"], BASE, d["slug"], d["line"], d["form"], d["status"], text_seal(d),
-            "".join("; prior seal %s (%s)" % (h, dt) for h, dt in reversed(lineage(d)))) for d in ACCORDS]
+            "".join("; prior seal %s (%s, %s/accords/%s/)" % (e["seal"], seal_date(e), BASE, e["slug"]) for e in reversed(d["editions"]))) for d in ACCORDS]
     idx += ["", "## Charters"] + ["- [%s — %s](%s/charters/%s/): %s (%s)" % (d["id"], d["title"], BASE, d["slug"], d["line"], d["status"]) for d in CHARTERS]
     idx += ["", "## Blueprints"] + ["- [%s — %s](%s/blueprints/%s/): %s (%s)" % (d["id"], d["title"], BASE, d["slug"], d["line"], STATE[d["access"]]) for d in BLUEPRINTS]
     idx += ["", "## Identity", "- [The Questions](%s/identity/): nine questions for humans; two further sets held and sealed." % BASE, ""]
@@ -673,6 +713,7 @@ def build_sandbox():
     global MODE; MODE = "sandbox"
     routes = [("vault", "The Vault — Codified Resonance", "", page_home())]
     routes += [(d["rid"], d["title"] + " | Accords | The Vault", "", page_accord(d)) for d in ACCORDS]
+    routes += [(e["rid"], e["title"] + " (superseded) | Accords | The Vault", "", page_accord(e)) for d in ACCORDS for e in d["editions"]]
     routes += [(d["rid"], d["title"] + " | Charters | The Vault", "", page_charter(d)) for d in CHARTERS]
     routes += [(d["rid"], d["title"] + " | Blueprints | The Vault", "", page_blueprint(d)) for d in BLUEPRINTS]
     routes += [("identity", "The Questions — Codified Resonance", "questions", page_questions()), ("signal", "Send Signal — The Vault", "", page_signal())]
