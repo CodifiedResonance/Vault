@@ -692,7 +692,7 @@ def build_dist():
     red += ["/vault-blueprint/%s /blueprints/%s/ 301" % (d["old_slug"], d["slug"]) for d in BLUEPRINTS if d.get("old_slug")]
     red += ["/mirror/identity /identity/ 301", "/the-questions /identity/ 301", "/send-signal /signal/ 301", "/correspondence /signal/ 301", "/correspondence/ /signal/ 301",
             "", "# Chambers that have left the Vault. Point these at their new homes when they exist.",
-            "/world-vault https://thelastplatform.com/world-vault/ 301", "/world-vault/* https://thelastplatform.com/world-vault/:splat 301", "# /last-platform/* https://www.thelastplatform.com/ 301",
+            "/world-vault https://thelastplatform.com/world-vault/ 301", "/world-vault/* https://thelastplatform.com/world-vault/:splat 301", "/last-platform/moonline https://thelastplatform.com/moonline/ 301", "/last-platform/moonline/* https://thelastplatform.com/moonline/:splat 301", "/last-platform https://thelastplatform.com/ 301", "/last-platform/* https://thelastplatform.com/ 301",
             "# /vault/vault-manifest-designs/* https://www.humanconsumerproducts.com/ 301",
             "/vault-transmissions/* / 302", "/vault/vault-manifest-designs/* / 302", "/echoes/* / 302", "/unsolicited/* / 302"]
     write(D / "_redirects", "\n".join(red) + "\n")
