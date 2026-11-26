@@ -1074,3 +1074,4 @@ body.paper .doc-adopt .bp-btn{color:#111;background:#fff;border-color:#111;box-s
   .tq-closing-standing{margin-top:4rem;padding-top:2.6rem;font-size:1.02rem;line-height:1.9}
 }
 @media(max-width:640px) and (prefers-reduced-motion:reduce){.tq-question .tq-question-text,.tq-question .tq-gloss,.tq-question .tq-question-meta{opacity:1!important}}
+.tq-operative,.tq-subline,.tq-closing-line{text-wrap:balance}
