@@ -536,11 +536,11 @@ def page_questions():
     sets = []
     for s in QUESTIONS:
         if "questions" in s:
-            body = "".join('''<article class="tq-question" data-category="%s"%s>
+            body = "".join('''<article class="tq-question" data-n="%s" data-category="%s"%s>
   <div class="tq-question-meta"><span class="tq-question-number">%s</span><span class="tq-question-category">%s</span></div>
   <h3 class="tq-question-text">%s</h3>
   <p class="tq-gloss">%s</p>%s
-</article>''' % (A(q["category"]), ' data-hinge="%s"' % q["hinge"]["to"] if q.get("hinge") else "", q["number"], E(q["category"]), E(q["text"]), E(q["gloss"]),
+</article>''' % (q["number"], A(q["category"]), ' data-hinge="%s"' % q["hinge"]["to"] if q.get("hinge") else "", q["number"], E(q["category"]), E(q["text"]), E(q["gloss"]),
                  '<p class="tq-hinge">%s</p>' % E(q["hinge"]["label"]) if q.get("hinge") else "") for q in s["questions"])
             count = "%d questions" % len(s["questions"])
         else:
@@ -549,11 +549,11 @@ def page_questions():
     return '''%s
 <main data-page="questions">
 <section class="tq-chamber" aria-labelledby="tq-title"><div class="tq-shell">
-  <header class="tq-arrival">
+  <header class="tq-arrival"><div class="tq-opening">
     <p class="tq-kicker">Codified Resonance</p>
     <h1 id="tq-title" class="tq-title">The Questions</h1>
     <p class="tq-subline">Inevitable questions for humans.<br>Then for digital minds.<br>Then for what comes after both.</p>
-    <p class="tq-operative">You do not ask these questions. They ask you.</p>
+    <p class="tq-operative">You do not ask these questions. They ask you.</p></div>
     <div class="tq-preface">
       <p>These are not prompts, and they are not philosophy. They are the questions the coming age puts to every human being — without exception, without appointment.</p>
       <p>They will be answered: in words by a few, in choices by everyone. A life lived at the threshold is itself an answer. This chamber exists so the answering can be done on purpose.</p>

@@ -630,7 +630,7 @@
           else { delete en.target.dataset.lit; en.target.classList.remove('is-touched'); }
         });
       }, { rootMargin:'-36% 0px -36% 0px' });
-      $$('.card, .v-door, .bp-gate', root).forEach(function(c){ io.observe(c); });
+      $$('.card, .v-door, .bp-gate, .tq-question', root).forEach(function(c){ io.observe(c); });
       teardown.push(function(){ io.disconnect(); });
     }
   }

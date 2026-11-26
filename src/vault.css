@@ -1031,3 +1031,46 @@ body.paper .doc-adopt .bp-btn{color:#111;background:#fff;border-color:#111;box-s
 .doc-superseded span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint)}
 .doc-superseded a{color:rgb(var(--cyan));text-decoration:none}
 @media(max-width:640px){.doc-lineage li{grid-template-columns:1fr auto;gap:4px 12px}.doc-lineage .ln-state{grid-column:1/-1}}
+
+/* ---------- The Questions, phone: one question to a screen, room to breathe ---------- */
+@media(max-width:640px){
+  .tq-shell{width:auto;margin:0 28px;padding:0 0 4rem}
+  .tq-opening{min-height:calc(100svh - 64px);display:flex;flex-direction:column;justify-content:center;padding:3rem 0 5rem}
+  .tq-kicker{font-size:.68rem;letter-spacing:.32em;margin-bottom:1.6rem}
+  .tq-title{font-size:clamp(3.2rem,15vw,4.4rem);line-height:.95;letter-spacing:-.035em}
+  .tq-subline{margin-top:2.4rem;font-size:1.12rem;line-height:1.75;color:var(--tq-text-faint)}
+  .tq-operative{margin-top:3.6rem;padding-left:1.2rem;font-size:1.05rem}
+  .tq-preface{margin-top:0;padding:5.5rem 0 0;border-top:1px solid var(--tq-line-soft)}
+  .tq-preface p{font-size:1.02rem;line-height:1.9;margin-bottom:2.2rem}
+  .tq-preface .tq-preface-note{margin-top:3rem}
+  .tq-first-crossing{height:7rem}
+  .tq-set{padding-top:9rem}
+  .tq-set-head{padding-bottom:2.6rem}
+  .tq-set-index{font-size:.68rem;letter-spacing:.32em;margin-bottom:1.4rem}
+  .tq-set-name{font-size:2.2rem}
+  .tq-status{margin-top:2.2rem}
+  .tq-question{min-height:78svh;display:flex;flex-direction:column;justify-content:center;padding:6rem 0;border-bottom:none}
+  .tq-question+.tq-question{border-top:1px solid var(--tq-line-soft)}
+  .tq-question::before{left:-14px;top:50%;transform:translateY(-50%);transition:height 1.2s var(--tq-ease),opacity .8s}
+  .tq-question.is-visible::before{height:5rem}
+  .tq-question::after{content:attr(data-n);position:absolute;right:-8px;top:50%;transform:translateY(-58%);font-family:"Cinzel",serif;font-size:min(38vw,170px);line-height:1;letter-spacing:.02em;color:rgba(232,226,214,.035);pointer-events:none;transition:color 1.2s var(--tq-ease)}
+  .tq-question-meta{margin-bottom:2.2rem}
+  .tq-question-text{font-size:clamp(2rem,8.6vw,2.4rem);line-height:1.14;position:relative;z-index:1}
+  .tq-gloss{margin-top:2.6rem;font-size:1.02rem;line-height:1.9;position:relative;z-index:1}
+  .tq-hinge{margin-top:2.8rem}
+  /* the question at the centre of the screen is the one being asked */
+  .tq-question .tq-question-text,.tq-question .tq-question-meta{transition:opacity 1s var(--tq-ease),text-shadow 1s var(--tq-ease)}
+  .tq-question.is-visible:not(.is-touched) .tq-question-text{opacity:.42}
+  .tq-question.is-visible:not(.is-touched) .tq-gloss{opacity:.35}
+  .tq-question.is-visible:not(.is-touched) .tq-question-meta{opacity:.5}
+  .tq-question.is-touched .tq-question-text{text-shadow:0 0 38px rgba(232,226,214,.20)}
+  .tq-question.is-touched::after{color:rgba(232,226,214,.07)}
+  .tq-question.is-touched::before{opacity:.9}
+  .tq-sealed-panel{margin-top:4.5rem;padding:3.5rem 1.6rem;border-color:rgba(255,255,255,.05)}
+  .tq-sealed-copy{font-size:1.3rem;margin-bottom:1.8rem}
+  .tq-sealed-copy:last-child{line-height:1.9}
+  .tq-closing{min-height:80svh;display:flex;flex-direction:column;justify-content:center;padding-top:8rem}
+  .tq-closing-line{font-size:1.55rem;line-height:1.5}
+  .tq-closing-standing{margin-top:4rem;padding-top:2.6rem;font-size:1.02rem;line-height:1.9}
+}
+@media(max-width:640px) and (prefers-reduced-motion:reduce){.tq-question .tq-question-text,.tq-question .tq-gloss,.tq-question .tq-question-meta{opacity:1!important}}
