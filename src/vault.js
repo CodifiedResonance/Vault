@@ -611,7 +611,14 @@
     });
   }
 
-  function initQuestions(root){ observe($$('.tq-question', root), 'is-visible', { threshold:0.18, rootMargin:'0px 0px -8% 0px' }); }
+  function initQuestions(root){
+    observe($$('.tq-question', root), 'is-visible', { threshold:0.18, rootMargin:'0px 0px -8% 0px' });
+    /* the question at the centre of the screen is the one being asked, on every screen size */
+    if('IntersectionObserver' in window && !reduce){
+      var io = new IntersectionObserver(function(es){ es.forEach(function(en){ en.target.classList.toggle('is-touched', en.isIntersecting); }); }, { rootMargin:'-38% 0px -38% 0px' });
+      $$('.tq-question', root).forEach(function(q){ io.observe(q); }); teardown.push(function(){ io.disconnect(); });
+    }
+  }
 
   function init(){
     var root = $('#app'), page = $('[data-page]', root); if(!page) return;
@@ -630,7 +637,7 @@
           else { delete en.target.dataset.lit; en.target.classList.remove('is-touched'); }
         });
       }, { rootMargin:'-36% 0px -36% 0px' });
-      $$('.card, .v-door, .bp-gate, .tq-question', root).forEach(function(c){ io.observe(c); });
+      $$('.card, .v-door, .bp-gate', root).forEach(function(c){ io.observe(c); });
       teardown.push(function(){ io.disconnect(); });
     }
   }
